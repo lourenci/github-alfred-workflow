@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/collection"
 	"github.com/lourenci/github-alfred/lib/github"
 )
@@ -83,6 +84,6 @@ func main() {
 		}),
 	}
 
-	json, _ := json.Marshal(alfred)
+	json := assert.NoError(json.Marshal(alfred))
 	fmt.Println(string(json))
 }
