@@ -29,7 +29,7 @@ func PanicsWithMessage(t *testing.T, fn func(), msg string) {
 		if r == nil {
 			t.Fatalf("expected to panic, but it did not")
 		}
-		if r != msg {
+		if r.(error).Error() != msg {
 			t.Fatalf(
 				`expected to panic with the message "%s", but it panicked with the message "%s"`,
 				msg,
