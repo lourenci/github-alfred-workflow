@@ -13,7 +13,7 @@ type GitHub struct {
 	token string
 }
 
-type Repositories []Repository
+type repositories []Repository
 
 type Repository struct {
 	Name        string `json:"full_name"`
@@ -32,7 +32,7 @@ func (g GitHub) StarredRepos() []Repository {
 	res := assert.NoError(http.DefaultClient.Do(newDefaultClient(g.token).get("https://api.github.com/user/starred")))
 	body := assert.NoError(io.ReadAll(res.Body))
 
-	repositories := Repositories{}
+	repositories := repositories{}
 	json.Unmarshal(body, &repositories)
 
 	return repositories
@@ -42,7 +42,7 @@ func (g GitHub) UserRepos() []Repository {
 	res := assert.NoError(http.DefaultClient.Do(newDefaultClient(g.token).get("https://api.github.com/user/repos")))
 	body := assert.NoError(io.ReadAll(res.Body))
 
-	repositories := Repositories{}
+	repositories := repositories{}
 	json.Unmarshal(body, &repositories)
 
 	return repositories
@@ -52,7 +52,7 @@ func (g GitHub) WatchedRepos() []Repository {
 	res := assert.NoError(http.DefaultClient.Do(newDefaultClient(g.token).get("https://api.github.com/user/subscriptions")))
 	body := assert.NoError(io.ReadAll(res.Body))
 
-	repositories := Repositories{}
+	repositories := repositories{}
 	json.Unmarshal(body, &repositories)
 
 	return repositories
