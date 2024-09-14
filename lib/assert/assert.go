@@ -54,3 +54,11 @@ func NotPanics(t *testing.T, fn func()) {
 
 	fn()
 }
+
+func NoError[T any](result T, err error) T {
+	if err != nil {
+		panic(err)
+	}
+
+	return result
+}
