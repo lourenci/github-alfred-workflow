@@ -44,3 +44,53 @@ func TestMap(t *testing.T) {
 		)
 	})
 }
+
+func TestDedup(t *testing.T) {
+	t.Run("returns a new slice with the duplicates removed", func(t *testing.T) {
+		assert.Equals(
+			t,
+			collection.Dedup([]int{}),
+			[]int{},
+		)
+
+		assert.Equals(
+			t,
+			collection.Dedup([]int{1, 2, 3, 2, 5}),
+			[]int{1, 2, 3, 5},
+		)
+
+		type payload struct {
+			text      string
+			more_text string
+		}
+		assert.Equals(
+			t,
+			collection.Dedup(
+				[]payload{
+					{
+						text:      "a",
+						more_text: "b",
+					},
+					{
+						text:      "a",
+						more_text: "b",
+					},
+					{
+						text:      "b",
+						more_text: "a",
+					},
+				},
+			),
+			[]payload{
+				{
+					text:      "a",
+					more_text: "b",
+				},
+				{
+					text:      "b",
+					more_text: "a",
+				},
+			},
+		)
+	})
+}

@@ -61,7 +61,7 @@ func main() {
 		}()
 	}(channels)
 
-	repos := append(append(<-channels, <-channels...), <-channels...)
+	repos := collection.Dedup(append(append(<-channels, <-channels...), <-channels...))
 
 	alfred := Alfred{
 		Cache: Cache{Seconds: cacheInMinutes * 60},
