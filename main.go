@@ -48,7 +48,20 @@ func main() {
 
 	githubApi := github.New(token)
 
-	repos := append(append(githubApi.StarredRepos(), githubApi.UserRepos()...), githubApi.WatchedRepos()...)
+	channels := make(chan []github.Repository)
+	func(c chan []github.Repository) {
+		go func() {
+			c <- githubApi.StarredRepos()
+		}()
+		go func() {
+			c <- githubApi.UserRepos()
+		}()
+		go func() {
+			c <- githubApi.WatchedRepos()
+		}()
+	}(channels)
+
+	repos := append(append(<-channels, <-channels...), <-channels...)
 
 	alfred := Alfred{
 		Cache: Cache{Seconds: cacheInMinutes * 60},
