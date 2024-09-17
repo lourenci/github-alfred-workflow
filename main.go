@@ -72,7 +72,7 @@ func main() {
 				Title:    repo.Name,
 				Subtitle: repo.Description,
 				Match:    fmt.Sprintf("%s %s", repo.Name, repo.Description),
-				Text:     Text{Copy: repo.GitURL},
+				Text:     Text{Copy: repo.SshURL},
 				Mods: Mods{
 					Cmd: Cmd{
 						Subtitle: "⌘ to copy git url",

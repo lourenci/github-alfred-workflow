@@ -19,7 +19,7 @@ type Repository struct {
 	Name        string `json:"full_name"`
 	URL         string `json:"html_url"`
 	Description string `json:"description"`
-	GitURL      string `json:"git_url"`
+	SshURL      string `json:"ssh_url"`
 }
 
 func New(token string) GitHub {
