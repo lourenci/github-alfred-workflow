@@ -75,7 +75,7 @@ func main() {
 				Text:     Text{Copy: repo.SshURL},
 				Mods: Mods{
 					Cmd: Cmd{
-						Subtitle: "⌘ to copy git url",
+						Subtitle: "⌘-C to copy git url",
 						Arg:      repo.URL,
 					},
 				},
