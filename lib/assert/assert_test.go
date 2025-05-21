@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/lourenci/github-alfred/lib/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNoError(t *testing.T) {
@@ -13,7 +14,7 @@ func TestNoError(t *testing.T) {
 			return 1, nil
 		}
 
-		assert.Equals(t, assert.NoError(noErrorFn()), 1)
+		require.Equal(t, 1, assert.NoError(noErrorFn()))
 	})
 
 	t.Run("panics with the error messages when there is an error", func(t *testing.T) {
@@ -21,10 +22,10 @@ func TestNoError(t *testing.T) {
 			return 0, errors.New("some error")
 		}
 
-		assert.PanicsWithMessage(
+		require.PanicsWithError(
 			t,
-			func() { assert.NoError(errorFn()) },
 			"some error",
+			func() { assert.NoError(errorFn()) },
 		)
 	})
 }

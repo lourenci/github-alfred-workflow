@@ -13,7 +13,7 @@ func Map[T any, R any](slice []T, predicate func(T) R) []R {
 }
 
 func Dedup[T comparable](slice []T) []T {
-	var deduped []T
+	deduped := []T{}
 
 	for _, it := range slice {
 		if slices.Contains(deduped, it) {
