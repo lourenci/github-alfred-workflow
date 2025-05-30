@@ -29,7 +29,7 @@ func New(token string) GitHub {
 }
 
 func (g GitHub) StarredRepos() []Repository {
-	res := assert.NoError(http.DefaultClient.Do(newDefaultClient(g.token).get("https://api.github.com/user/starred")))
+	res := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/starred"))
 	body := assert.NoError(io.ReadAll(res.Body))
 
 	repositories := repositories{}
@@ -39,7 +39,7 @@ func (g GitHub) StarredRepos() []Repository {
 }
 
 func (g GitHub) UserRepos() []Repository {
-	res := assert.NoError(http.DefaultClient.Do(newDefaultClient(g.token).get("https://api.github.com/user/repos")))
+	res := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/repos"))
 	body := assert.NoError(io.ReadAll(res.Body))
 
 	repositories := repositories{}
@@ -49,7 +49,7 @@ func (g GitHub) UserRepos() []Repository {
 }
 
 func (g GitHub) WatchedRepos() []Repository {
-	res := assert.NoError(http.DefaultClient.Do(newDefaultClient(g.token).get("https://api.github.com/user/subscriptions")))
+	res := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/subscriptions"))
 	body := assert.NoError(io.ReadAll(res.Body))
 
 	repositories := repositories{}
@@ -59,12 +59,12 @@ func (g GitHub) WatchedRepos() []Repository {
 }
 
 type defaultClient struct {
-	get func(url string) *http.Request
+	get func(url string) (*http.Response, error)
 }
 
 func newDefaultClient(token string) defaultClient {
 	return defaultClient{
-		get: func(url string) *http.Request {
+		get: func(url string) (*http.Response, error) {
 			req := assert.NoError(http.NewRequest("GET", url, nil))
 
 			req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
@@ -76,7 +76,7 @@ func newDefaultClient(token string) defaultClient {
 
 			req.URL.RawQuery = query.Encode()
 
-			return req
+			return http.DefaultClient.Do(req)
 		},
 	}
 }
