@@ -59,24 +59,26 @@ func (g GitHub) WatchedRepos() []Repository {
 }
 
 type defaultClient struct {
-	get func(url string) (*http.Response, error)
+	token string
 }
 
 func newDefaultClient(token string) defaultClient {
 	return defaultClient{
-		get: func(url string) (*http.Response, error) {
-			req := assert.NoError(http.NewRequest("GET", url, nil))
-
-			req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-			req.Header.Add("Accept", "application/vnd.github+json")
-			req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
-
-			query := req.URL.Query()
-			query.Add("per_page", "100")
-
-			req.URL.RawQuery = query.Encode()
-
-			return http.DefaultClient.Do(req)
-		},
+		token: token,
 	}
+}
+
+func (c defaultClient) get(url string) (*http.Response, error) {
+	req := assert.NoError(http.NewRequest("GET", url, nil))
+
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", c.token))
+	req.Header.Add("Accept", "application/vnd.github+json")
+	req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
+
+	query := req.URL.Query()
+	query.Add("per_page", "100")
+
+	req.URL.RawQuery = query.Encode()
+
+	return http.DefaultClient.Do(req)
 }
