@@ -105,22 +105,18 @@ func (c defaultClient) get_with_page(url string, page int, responses []*http.Res
 
 	req.URL.RawQuery = query.Encode()
 
-	res, err := http.DefaultClient.Do(req)
+	res := assert.NoError(http.DefaultClient.Do(req))
 
 	responses = append(responses, res)
 
-	var last string
-	if matches := regexp.MustCompile(`<.*?page=(\d+)>; rel="last"`).FindStringSubmatch(res.Header.Get("link")); len(matches) > 0 {
-		last = matches[1]
+	lastPage := page
+	if matches := regexp.MustCompile(`rel="next".*\bpage\b=(\d+).* rel="last"`).FindStringSubmatch(res.Header.Get("link")); len(matches) > 0 {
+		lastPage = assert.NoError(strconv.Atoi(matches[1]))
 	}
 
-	if last != "" {
-		lastPage := assert.NoError(strconv.Atoi(last))
-
-		if lastPage > page {
-			return c.get_with_page(url, page+1, responses)
-		}
+	if lastPage == page {
+		return responses, nil
 	}
 
-	return responses, err
+	return c.get_with_page(url, page+1, responses)
 }
