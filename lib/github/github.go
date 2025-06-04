@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
+	"strconv"
 
 	"github.com/lourenci/github-alfred/lib/assert"
 )
@@ -29,33 +31,51 @@ func New(token string) GitHub {
 }
 
 func (g GitHub) StarredRepos() []Repository {
-	res := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/starred"))
-	body := assert.NoError(io.ReadAll(res.Body))
+	all_repositories := repositories{}
 
-	repositories := repositories{}
-	json.Unmarshal(body, &repositories)
+	responses := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/starred"))
+	for _, res := range responses {
+		body := assert.NoError(io.ReadAll(res.Body))
 
-	return repositories
+		page_repositories := repositories{}
+		json.Unmarshal(body, &page_repositories)
+
+		all_repositories = append(all_repositories, page_repositories...)
+	}
+
+	return all_repositories
 }
 
 func (g GitHub) UserRepos() []Repository {
-	res := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/repos"))
-	body := assert.NoError(io.ReadAll(res.Body))
+	all_repositories := repositories{}
 
-	repositories := repositories{}
-	json.Unmarshal(body, &repositories)
+	responses := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/repos"))
+	for _, res := range responses {
+		body := assert.NoError(io.ReadAll(res.Body))
 
-	return repositories
+		page_repositories := repositories{}
+		json.Unmarshal(body, &page_repositories)
+
+		all_repositories = append(all_repositories, page_repositories...)
+	}
+
+	return all_repositories
 }
 
 func (g GitHub) WatchedRepos() []Repository {
-	res := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/subscriptions"))
-	body := assert.NoError(io.ReadAll(res.Body))
+	all_repositories := repositories{}
 
-	repositories := repositories{}
-	json.Unmarshal(body, &repositories)
+	responses := assert.NoError(newDefaultClient(g.token).get("https://api.github.com/user/subscriptions"))
+	for _, res := range responses {
+		body := assert.NoError(io.ReadAll(res.Body))
 
-	return repositories
+		page_repositories := repositories{}
+		json.Unmarshal(body, &page_repositories)
+
+		all_repositories = append(all_repositories, page_repositories...)
+	}
+
+	return all_repositories
 }
 
 type defaultClient struct {
@@ -68,7 +88,11 @@ func newDefaultClient(token string) defaultClient {
 	}
 }
 
-func (c defaultClient) get(url string) (*http.Response, error) {
+func (c defaultClient) get(url string) ([]*http.Response, error) {
+	return c.get_with_page(url, 1, []*http.Response{})
+}
+
+func (c defaultClient) get_with_page(url string, page int, responses []*http.Response) ([]*http.Response, error) {
 	req := assert.NoError(http.NewRequest("GET", url, nil))
 
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", c.token))
@@ -77,8 +101,26 @@ func (c defaultClient) get(url string) (*http.Response, error) {
 
 	query := req.URL.Query()
 	query.Add("per_page", "100")
+	query.Add("page", fmt.Sprintf("%d", page))
 
 	req.URL.RawQuery = query.Encode()
 
-	return http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+
+	responses = append(responses, res)
+
+	var last string
+	if matches := regexp.MustCompile(`<.*?page=(\d+)>; rel="last"`).FindStringSubmatch(res.Header.Get("link")); len(matches) > 0 {
+		last = matches[1]
+	}
+
+	if last != "" {
+		lastPage := assert.NoError(strconv.Atoi(last))
+
+		if lastPage > page {
+			return c.get_with_page(url, page+1, responses)
+		}
+	}
+
+	return responses, err
 }
