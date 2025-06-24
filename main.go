@@ -9,6 +9,7 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/collection"
 	"github.com/lourenci/github-alfred/lib/github"
+	"github.com/lourenci/github-alfred/lib/http"
 )
 
 type Alfred struct {
@@ -47,7 +48,7 @@ func main() {
 	token := os.Args[1]
 	cacheInMinutes, _ := strconv.Atoi(os.Args[2])
 
-	githubApi := github.New(token)
+	githubApi := github.New(token, http.New())
 
 	channels := make(chan []github.Repository)
 	func(c chan []github.Repository) {
