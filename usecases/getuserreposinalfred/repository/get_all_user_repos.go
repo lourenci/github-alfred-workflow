@@ -11,7 +11,6 @@ type repository struct {
 
 func New(githubHttpClient github.GitHub) repository {
 	return repository{httpClient: githubHttpClient}
-
 }
 
 func (r repository) GetAllUserRepos() []github.Repository {
