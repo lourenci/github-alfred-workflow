@@ -96,4 +96,74 @@ func TestGetAllUserRepos(t *testing.T) {
 			usecases.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
 		)
 	})
+
+	t.Run("ignores duplicated repos", func(t *testing.T) {
+		requests := map[url.URL][]http.Response{
+			*assert.NoError(url.Parse("https://api.github.com/user/starred?per_page=100&page=1")): {
+				{
+					StatusCode: http.StatusOK,
+					Body: io.NopCloser(
+						strings.NewReader(
+							`[
+							{
+								"full_name": "octocat/starred",
+								"html_url": "https://github.com/octocat/starred",
+								"description": "starred repo",
+								"ssh_url": "git@github.com:octocat/starred.git"
+							}
+						]
+						`,
+						),
+					),
+				},
+			},
+			*assert.NoError(url.Parse("https://api.github.com/user/repos?per_page=100&page=1")): {
+				{StatusCode: http.StatusOK,
+					Body: io.NopCloser(
+						strings.NewReader(
+							`[
+							{
+								"full_name": "octocat/starred",
+								"html_url": "https://github.com/octocat/starred",
+								"description": "starred repo",
+								"ssh_url": "git@github.com:octocat/starred.git"
+							}
+						]
+						`,
+						),
+					),
+				},
+			},
+			*assert.NoError(url.Parse("https://api.github.com/user/subscriptions?per_page=100&page=1")): {
+				{StatusCode: http.StatusOK,
+					Body: io.NopCloser(
+						strings.NewReader(
+							`[
+							{
+								"full_name": "octocat/starred",
+								"html_url": "https://github.com/octocat/starred",
+								"description": "starred repo",
+								"ssh_url": "git@github.com:octocat/starred.git"
+							}
+						]
+						`,
+						),
+					),
+				},
+			},
+		}
+
+		require.ElementsMatch(
+			t,
+			[]github.Repository{
+				{
+					Name:        "octocat/starred",
+					URL:         "https://github.com/octocat/starred",
+					Description: "starred repo",
+					SshURL:      "git@github.com:octocat/starred.git",
+				},
+			},
+			usecases.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
+		)
+	})
 }

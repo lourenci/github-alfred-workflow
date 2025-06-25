@@ -1,6 +1,9 @@
 package usecases
 
-import "github.com/lourenci/github-alfred/lib/github"
+import (
+	"github.com/lourenci/github-alfred/lib/collection"
+	"github.com/lourenci/github-alfred/lib/github"
+)
 
 func GetAllUserRepos(githubRepository github.GitHub) []github.Repository {
 	channels := make(chan []github.Repository)
@@ -16,7 +19,7 @@ func GetAllUserRepos(githubRepository github.GitHub) []github.Repository {
 		}()
 	}(channels)
 
-	repos := append(append(<-channels, <-channels...), <-channels...)
+	repos := collection.Dedup(append(append(<-channels, <-channels...), <-channels...))
 
 	return repos
 }
