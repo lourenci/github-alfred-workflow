@@ -44,12 +44,18 @@ func TestStarredRepos(t *testing.T) {
 
 		repo := githubClient.StarredRepos()
 
-		require.Equal(t, []github.Repository{{
-			Name:        "octocat/Hello-World",
-			URL:         "https://github.com/octocat/Hello-World",
-			Description: "This your first repo!",
-			SshURL:      "git@github.com:octocat/Hello-World.git",
-		}}, repo)
+		require.Equal(
+			t,
+			[]github.Repository{
+				{
+					Name:        "octocat/Hello-World",
+					URL:         "https://github.com/octocat/Hello-World",
+					Description: "This your first repo!",
+					SshURL:      "git@github.com:octocat/Hello-World.git",
+				},
+			},
+			repo,
+		)
 		require.Equal(
 			t,
 			fakeHttpClient.Calls,
@@ -193,12 +199,18 @@ func TestUserRepos(t *testing.T) {
 
 		repo := githubClient.UserRepos()
 
-		require.Equal(t, []github.Repository{{
-			Name:        "octocat/Hello-World",
-			URL:         "https://github.com/octocat/Hello-World",
-			Description: "This your first repo!",
-			SshURL:      "git@github.com:octocat/Hello-World.git",
-		}}, repo)
+		require.Equal(
+			t,
+			[]github.Repository{
+				{
+					Name:        "octocat/Hello-World",
+					URL:         "https://github.com/octocat/Hello-World",
+					Description: "This your first repo!",
+					SshURL:      "git@github.com:octocat/Hello-World.git",
+				},
+			},
+			repo,
+		)
 		require.Equal(
 			t,
 			fakeHttpClient.Calls,
@@ -345,12 +357,18 @@ func TestWatchedRepos(t *testing.T) {
 
 		repo := githubClient.WatchedRepos()
 
-		require.Equal(t, []github.Repository{{
-			Name:        "octocat/Hello-World",
-			URL:         "https://github.com/octocat/Hello-World",
-			Description: "This your first repo!",
-			SshURL:      "git@github.com:octocat/Hello-World.git",
-		}}, repo)
+		require.Equal(
+			t,
+			[]github.Repository{
+				{
+					Name:        "octocat/Hello-World",
+					URL:         "https://github.com/octocat/Hello-World",
+					Description: "This your first repo!",
+					SshURL:      "git@github.com:octocat/Hello-World.git",
+				},
+			},
+			repo,
+		)
 		require.Equal(
 			t,
 			fakeHttpClient.Calls,
