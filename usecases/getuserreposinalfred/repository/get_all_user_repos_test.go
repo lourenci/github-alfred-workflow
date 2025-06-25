@@ -93,7 +93,7 @@ func TestGetAllUserRepos(t *testing.T) {
 					SshURL:      "git@github.com:octocat/subscriptions.git",
 				},
 			},
-			repository.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
+			repository.New(github.New("token", test.NewFakeHttpClient(requests))).GetAllUserRepos(),
 		)
 	})
 
@@ -163,7 +163,7 @@ func TestGetAllUserRepos(t *testing.T) {
 					SshURL:      "git@github.com:octocat/starred.git",
 				},
 			},
-			repository.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
+			repository.New(github.New("token", test.NewFakeHttpClient(requests))).GetAllUserRepos(),
 		)
 	})
 }

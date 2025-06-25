@@ -5,17 +5,26 @@ import (
 	"github.com/lourenci/github-alfred/lib/github"
 )
 
-func GetAllUserRepos(githubRepository github.GitHub) []github.Repository {
+type repository struct {
+	httpClient github.GitHub
+}
+
+func New(githubHttpClient github.GitHub) repository {
+	return repository{httpClient: githubHttpClient}
+
+}
+
+func (r repository) GetAllUserRepos() []github.Repository {
 	channels := make(chan []github.Repository)
 	func(c chan []github.Repository) {
 		go func() {
-			c <- githubRepository.StarredRepos()
+			c <- r.httpClient.StarredRepos()
 		}()
 		go func() {
-			c <- githubRepository.UserRepos()
+			c <- r.httpClient.UserRepos()
 		}()
 		go func() {
-			c <- githubRepository.WatchedRepos()
+			c <- r.httpClient.WatchedRepos()
 		}()
 	}(channels)
 
