@@ -10,7 +10,7 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http/test"
-	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
+	"github.com/lourenci/github-alfred/usecases/convertrepositorytoalfred/repository"
 	"github.com/stretchr/testify/require"
 )
 

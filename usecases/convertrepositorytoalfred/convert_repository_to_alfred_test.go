@@ -1,17 +1,17 @@
-package getuserreposinalfred_test
+package convertrepositorytoalfred_test
 
 import (
 	"testing"
 	"time"
 
 	"github.com/lourenci/github-alfred/lib/github"
-	getuserreposinalfred "github.com/lourenci/github-alfred/usecases/getuserreposinalfred"
+	"github.com/lourenci/github-alfred/usecases/convertrepositorytoalfred"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGetUserReposInAlfred(t *testing.T) {
 	t.Run("returns all user repos in alfred results", func(t *testing.T) {
-		alfred := getuserreposinalfred.New(
+		alfred := convertrepositorytoalfred.New(
 			newFakeRepository(
 				[]github.Repository{
 					{
@@ -32,17 +32,17 @@ func TestGetUserReposInAlfred(t *testing.T) {
 
 		require.Equal(
 			t,
-			getuserreposinalfred.Alfred{
-				Cache: getuserreposinalfred.Cache{Seconds: 60 * 60},
-				Items: []getuserreposinalfred.Item{
+			convertrepositorytoalfred.Alfred{
+				Cache: convertrepositorytoalfred.Cache{Seconds: 60 * 60},
+				Items: []convertrepositorytoalfred.Item{
 					{
 						UID:      "octocat/Hello-World",
 						Title:    "octocat/Hello-World",
 						Subtitle: "This your first repo!",
 						Match:    "octocat/Hello-World This your first repo!",
-						Text:     getuserreposinalfred.Text{Copy: "git@github.com:octocat/Hello-World.git"},
-						Mods: getuserreposinalfred.Mods{
-							Cmd: getuserreposinalfred.Cmd{
+						Text:     convertrepositorytoalfred.Text{Copy: "git@github.com:octocat/Hello-World.git"},
+						Mods: convertrepositorytoalfred.Mods{
+							Cmd: convertrepositorytoalfred.Cmd{
 								Subtitle: "⌘-C to copy git url",
 								Arg:      "https://github.com/octocat/Hello-World",
 							},
@@ -54,9 +54,9 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						Title:    "octocat/foo",
 						Subtitle: "foo repo",
 						Match:    "octocat/foo foo repo",
-						Text:     getuserreposinalfred.Text{Copy: "git@github.com:octocat/foo.git"},
-						Mods: getuserreposinalfred.Mods{
-							Cmd: getuserreposinalfred.Cmd{
+						Text:     convertrepositorytoalfred.Text{Copy: "git@github.com:octocat/foo.git"},
+						Mods: convertrepositorytoalfred.Mods{
+							Cmd: convertrepositorytoalfred.Cmd{
 								Subtitle: "⌘-C to copy git url",
 								Arg:      "https://github.com/octocat/foo",
 							},
@@ -70,7 +70,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 	})
 
 	t.Run("converts the provided cache to seconds", func(t *testing.T) {
-		alfred := getuserreposinalfred.New(
+		alfred := convertrepositorytoalfred.New(
 			newFakeRepository(
 				[]github.Repository{
 					{
@@ -91,8 +91,8 @@ func TestGetUserReposInAlfred(t *testing.T) {
 
 		require.Equal(
 			t,
-			getuserreposinalfred.Alfred{
-				Cache: getuserreposinalfred.Cache{Seconds: 7200},
+			convertrepositorytoalfred.Alfred{
+				Cache: convertrepositorytoalfred.Cache{Seconds: 7200},
 			}.Cache,
 			alfred.GetUserReposInAlfred(time.Hour*2).Cache,
 		)
