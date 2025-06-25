@@ -1,4 +1,4 @@
-package usecases_test
+package repository_test
 
 import (
 	"io"
@@ -10,7 +10,7 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http/test"
-	"github.com/lourenci/github-alfred/usecases"
+	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
 	"github.com/stretchr/testify/require"
 )
 
@@ -93,7 +93,7 @@ func TestGetAllUserRepos(t *testing.T) {
 					SshURL:      "git@github.com:octocat/subscriptions.git",
 				},
 			},
-			usecases.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
+			repository.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
 		)
 	})
 
@@ -163,7 +163,7 @@ func TestGetAllUserRepos(t *testing.T) {
 					SshURL:      "git@github.com:octocat/starred.git",
 				},
 			},
-			usecases.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
+			repository.GetAllUserRepos(github.New("token", test.NewFakeHttpClient(requests))),
 		)
 	})
 }

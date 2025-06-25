@@ -1,4 +1,4 @@
-package usecases
+package repository
 
 import (
 	"github.com/lourenci/github-alfred/lib/collection"
