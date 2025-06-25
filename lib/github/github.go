@@ -112,7 +112,6 @@ func (c defaultClient) get_with_page(urlString string, page int, responses []*ht
 	))
 
 	responses = append(responses, res)
-	fmt.Printf("%v", res.Header)
 
 	lastPage := page
 	if matches := regexp.MustCompile(`rel="next".*\bpage\b=(\d+).* rel="last"`).FindStringSubmatch(res.Header.Get("link")); len(matches) > 0 {
