@@ -10,15 +10,15 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http"
-	"github.com/lourenci/github-alfred/usecases/convertrepositorytoalfred"
-	"github.com/lourenci/github-alfred/usecases/convertrepositorytoalfred/repository"
+	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred"
+	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
 )
 
 func main() {
 	token := os.Args[1]
 	cacheInMinutes, _ := strconv.Atoi(os.Args[2])
 
-	useCase := convertrepositorytoalfred.New(
+	useCase := getuserreposinalfred.New(
 		repository.New(github.New(token, http.New())),
 	)
 

@@ -1,4 +1,4 @@
-package convertrepositorytoalfred
+package getuserreposinalfred
 
 import (
 	"fmt"
