@@ -17,14 +17,21 @@ type GitHub struct {
 	httpClient HttpClient
 }
 
-type repositories []Repository
-
 type Repository struct {
 	Name        string `json:"full_name"`
 	URL         string `json:"html_url"`
 	Description string `json:"description"`
 	SshURL      string `json:"ssh_url"`
 }
+
+type Pull struct {
+	Title     string `json:"title"`
+	CreatedAt string `json:"created_at"`
+	URL       string `json:"html_url"`
+}
+
+type repositories []Repository
+type pulls []Pull
 
 type HttpClient interface {
 	Get(url url.URL, headers map[string]string) (*http.Response, error)
@@ -40,7 +47,7 @@ func New(token string, httpClient HttpClient) GitHub {
 func (g GitHub) StarredRepos() []Repository {
 	all_repositories := repositories{}
 
-	responses := assert.NoError(newDefaultClient(g.httpClient, g.token).get("https://api.github.com/user/starred"))
+	responses := assert.NoError(newDefaultClient(g.httpClient, g.token).get_all_pages("https://api.github.com/user/starred"))
 	for _, res := range responses {
 		body := assert.NoError(io.ReadAll(res.Body))
 
@@ -56,7 +63,7 @@ func (g GitHub) StarredRepos() []Repository {
 func (g GitHub) UserRepos() []Repository {
 	all_repositories := repositories{}
 
-	responses := assert.NoError(newDefaultClient(g.httpClient, g.token).get("https://api.github.com/user/repos"))
+	responses := assert.NoError(newDefaultClient(g.httpClient, g.token).get_all_pages("https://api.github.com/user/repos"))
 	for _, res := range responses {
 		body := assert.NoError(io.ReadAll(res.Body))
 
@@ -72,7 +79,7 @@ func (g GitHub) UserRepos() []Repository {
 func (g GitHub) WatchedRepos() []Repository {
 	all_repositories := repositories{}
 
-	responses := assert.NoError(newDefaultClient(g.httpClient, g.token).get("https://api.github.com/user/subscriptions"))
+	responses := assert.NoError(newDefaultClient(g.httpClient, g.token).get_all_pages("https://api.github.com/user/subscriptions"))
 	for _, res := range responses {
 		body := assert.NoError(io.ReadAll(res.Body))
 
@@ -83,6 +90,15 @@ func (g GitHub) WatchedRepos() []Repository {
 	}
 
 	return all_repositories
+}
+
+func (g GitHub) UserOpenPullsOfRepo(repo, user string) []Pull {
+	res := assert.NoError(newDefaultClient(g.httpClient, g.token).get(fmt.Sprintf("https://api.github.com/repos/%s/pulls?head=user:%s&state=open", repo, user)))
+	body := assert.NoError(io.ReadAll(res.Body))
+
+	pulls := pulls{}
+	json.Unmarshal(body, &pulls)
+	return pulls
 }
 
 type defaultClient struct {
@@ -97,7 +113,7 @@ func newDefaultClient(httpClient HttpClient, token string) defaultClient {
 	}
 }
 
-func (c defaultClient) get(url string) ([]*http.Response, error) {
+func (c defaultClient) get_all_pages(url string) ([]*http.Response, error) {
 	return c.get_with_page(url, 1, []*http.Response{})
 }
 
@@ -123,4 +139,15 @@ func (c defaultClient) get_with_page(urlString string, page int, responses []*ht
 	}
 
 	return c.get_with_page(urlString, page+1, responses)
+}
+
+func (c defaultClient) get(urlString string) (*http.Response, error) {
+	return c.httpClient.Get(
+		*assert.NoError(url.Parse(urlString)),
+		map[string]string{
+			"Authorization":        fmt.Sprintf("Bearer %s", c.token),
+			"Accept":               "application/vnd.github+json",
+			"X-GitHub-Api-Version": "2022-11-28",
+		},
+	)
 }

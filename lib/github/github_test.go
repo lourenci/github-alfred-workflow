@@ -485,3 +485,119 @@ func TestWatchedRepos(t *testing.T) {
 		)
 	})
 }
+
+func TestUserOpenPullsOfRepo(t *testing.T) {
+	t.Run("returns a list of the user's open pull requests of a repo", func(t *testing.T) {
+		{
+			fakeHttpClient := test.NewFakeHttpClient(
+				map[url.URL][]http.Response{
+					*assert.NoError(url.Parse("https://api.github.com/repos/octocat/Hello-World/pulls?head=user:lourenci&state=open")): {
+						{
+							StatusCode: http.StatusOK,
+							Body: io.NopCloser(
+								strings.NewReader(
+									`[
+							{
+								"title": "Amazing PR",
+								"created_at": "2011-01-26T19:01:12Z",
+								"html_url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347"
+							}
+						]
+						`,
+								),
+							),
+						},
+					},
+				},
+			)
+			token := "test-token"
+
+			githubClient := github.New(token, fakeHttpClient)
+
+			pulls := githubClient.UserOpenPullsOfRepo("octocat/Hello-World", "lourenci")
+
+			require.Equal(
+				t,
+				[]github.Pull{
+					{
+						Title:     "Amazing PR",
+						CreatedAt: "2011-01-26T19:01:12Z",
+						URL:       "https://api.github.com/repos/octocat/Hello-World/pulls/1347",
+					},
+				},
+				pulls,
+			)
+			require.Equal(
+				t,
+				fakeHttpClient.Calls,
+				map[url.URL][]test.Call{
+					*assert.NoError(url.Parse("https://api.github.com/repos/octocat/Hello-World/pulls?head=user:lourenci&state=open")): {
+						{
+							Headers: map[string]string{
+								"Authorization":        fmt.Sprintf("Bearer %s", token),
+								"Accept":               "application/vnd.github+json",
+								"X-GitHub-Api-Version": "2022-11-28",
+							},
+						},
+					},
+				},
+			)
+		}
+		{
+			fakeHttpClient := test.NewFakeHttpClient(
+				map[url.URL][]http.Response{
+					*assert.NoError(url.Parse("https://api.github.com/repos/lourenci/foo/pulls?head=user:bar&state=open")): {
+						{
+							StatusCode: http.StatusOK,
+							Body: io.NopCloser(
+								strings.NewReader(
+									`[
+							{
+								"title": "Amazing PR 2",
+								"created_at": "2011-01-24T19:01:12Z",
+								"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347"
+							}
+						]
+						`,
+								),
+							),
+						},
+					},
+				},
+			)
+
+			token := "test-token"
+
+			githubClient := github.New(token, fakeHttpClient)
+
+			pulls := githubClient.UserOpenPullsOfRepo("lourenci/foo", "bar")
+
+			require.Equal(
+				t,
+				[]github.Pull{
+					{
+						Title:     "Amazing PR 2",
+						CreatedAt: "2011-01-24T19:01:12Z",
+						URL:       "https://api.github.com/repos/lourenci/foo/pulls/1347",
+					},
+				},
+				pulls,
+			)
+			require.Equal(
+				t,
+				fakeHttpClient.Calls,
+				map[url.URL][]test.Call{
+					*assert.NoError(url.Parse("https://api.github.com/repos/lourenci/foo/pulls?head=user:bar&state=open")): {
+						{
+							Headers: map[string]string{
+								"Authorization":        fmt.Sprintf("Bearer %s", token),
+								"Accept":               "application/vnd.github+json",
+								"X-GitHub-Api-Version": "2022-11-28",
+							},
+						},
+					},
+				},
+			)
+		}
+	})
+}
