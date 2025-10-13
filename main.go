@@ -10,21 +10,40 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred"
 	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred"
 	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
 )
 
 func main() {
 	token := os.Args[1]
-	cacheInMinutes, _ := strconv.Atoi(os.Args[2])
 
-	useCase := getuserreposinalfred.New(
-		repository.New(github.New(token, http.New())),
-	)
+	switch os.Args[2] {
+	case "repos":
+		cacheInMinutes, _ := strconv.Atoi(os.Args[3])
 
-	json := assert.NoError(json.Marshal(useCase.GetUserReposInAlfred(
-		assert.NoError(time.ParseDuration(fmt.Sprintf("%dm", cacheInMinutes))),
-	)))
+		useCase := getuserreposinalfred.New(
+			repository.New(github.New(token, http.New())),
+		)
 
-	fmt.Println(string(json))
+		json := assert.NoError(json.Marshal(useCase.GetUserReposInAlfred(
+			assert.NoError(time.ParseDuration(fmt.Sprintf("%dm", cacheInMinutes))),
+		)))
+
+		fmt.Println(string(json))
+	case "pulls":
+		repoName := os.Args[3]
+		user := os.Args[4]
+
+		useCase := getopenpullsinalfred.New(
+			github.New(token, http.New()),
+		)
+
+		json := assert.NoError(json.Marshal(useCase.GetUserOpenPullsOfRepo(repoName, user)))
+
+		fmt.Println(string(json))
+	default:
+		panic("invalid option")
+	}
+
 }
