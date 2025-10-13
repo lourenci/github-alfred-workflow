@@ -46,6 +46,10 @@ func TestGetUserReposInAlfred(t *testing.T) {
 								Subtitle: "⌘-C to copy git url | ⌘-return to open in browser",
 								Arg:      "https://github.com/octocat/Hello-World",
 							},
+							Alt: getuserreposinalfred.Alt{
+								Subtitle: "See options",
+								Arg:      "octocat/Hello-World",
+							},
 						},
 						Arg: "https://github.com/octocat/Hello-World",
 					},
@@ -59,6 +63,10 @@ func TestGetUserReposInAlfred(t *testing.T) {
 							Cmd: getuserreposinalfred.Cmd{
 								Subtitle: "⌘-C to copy git url | ⌘-return to open in browser",
 								Arg:      "https://github.com/octocat/foo",
+							},
+							Alt: getuserreposinalfred.Alt{
+								Subtitle: "See options",
+								Arg:      "octocat/foo",
 							},
 						},
 						Arg: "https://github.com/octocat/foo",

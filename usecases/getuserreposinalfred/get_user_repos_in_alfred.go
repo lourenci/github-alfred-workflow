@@ -33,9 +33,15 @@ type Text struct {
 
 type Mods struct {
 	Cmd Cmd `json:"cmd"`
+	Alt Alt `json:"alt"`
 }
 
 type Cmd struct {
+	Subtitle string `json:"subtitle"`
+	Arg      string `json:"arg"`
+}
+
+type Alt struct {
 	Subtitle string `json:"subtitle"`
 	Arg      string `json:"arg"`
 }
@@ -68,6 +74,10 @@ func (r UseCase) GetUserReposInAlfred(cacheDuration time.Duration) Alfred {
 					Cmd: Cmd{
 						Subtitle: "⌘-C to copy git url | ⌘-return to open in browser",
 						Arg:      repo.URL,
+					},
+					Alt: Alt{
+						Subtitle: "See options",
+						Arg:      repo.Name,
 					},
 				},
 				Arg: repo.URL,
