@@ -30,7 +30,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						},
 					},
 				),
-			).GetUserReposInAlfred("octocat/Hello-World", "john")
+			).GetUserOpenPullsOfRepo("octocat/Hello-World", "john")
 
 			require.Equal(
 				t,
@@ -75,7 +75,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						},
 					},
 				),
-			).GetUserReposInAlfred("foo/bar", "alice")
+			).GetUserOpenPullsOfRepo("foo/bar", "alice")
 
 			require.Equal(
 				t,

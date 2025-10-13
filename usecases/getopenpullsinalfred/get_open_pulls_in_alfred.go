@@ -31,7 +31,7 @@ func New(repository GithubRepository) UseCase {
 	return UseCase{repository: repository}
 }
 
-func (r UseCase) GetUserReposInAlfred(repo, user string) Alfred {
+func (r UseCase) GetUserOpenPullsOfRepo(repo, user string) Alfred {
 	repositories := r.repository.UserOpenPullsOfRepo(repo, user)
 
 	return Alfred{
