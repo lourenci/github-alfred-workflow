@@ -43,7 +43,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						Text:     getuserreposinalfred.Text{Copy: "git@github.com:octocat/Hello-World.git"},
 						Mods: getuserreposinalfred.Mods{
 							Cmd: getuserreposinalfred.Cmd{
-								Subtitle: "⌘-C to copy git url",
+								Subtitle: "⌘-C to copy git url | ⌘-return to open in browser",
 								Arg:      "https://github.com/octocat/Hello-World",
 							},
 						},
@@ -57,7 +57,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						Text:     getuserreposinalfred.Text{Copy: "git@github.com:octocat/foo.git"},
 						Mods: getuserreposinalfred.Mods{
 							Cmd: getuserreposinalfred.Cmd{
-								Subtitle: "⌘-C to copy git url",
+								Subtitle: "⌘-C to copy git url | ⌘-return to open in browser",
 								Arg:      "https://github.com/octocat/foo",
 							},
 						},

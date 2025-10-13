@@ -66,7 +66,7 @@ func (r UseCase) GetUserReposInAlfred(cacheDuration time.Duration) Alfred {
 				Text:     Text{Copy: repo.SshURL},
 				Mods: Mods{
 					Cmd: Cmd{
-						Subtitle: "⌘-C to copy git url",
+						Subtitle: "⌘-C to copy git url | ⌘-return to open in browser",
 						Arg:      repo.URL,
 					},
 				},
