@@ -1,4 +1,4 @@
-package getopenpullsinalfred
+package vo
 
 import (
 	"fmt"

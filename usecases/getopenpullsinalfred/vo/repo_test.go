@@ -1,9 +1,9 @@
-package getopenpullsinalfred_test
+package vo_test
 
 import (
 	"testing"
 
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
 	"github.com/stretchr/testify/require"
 )
 
@@ -11,8 +11,8 @@ func TestMustParse(t *testing.T) {
 	t.Run("parses the Repo", func(t *testing.T) {
 		require.Equal(
 			t,
-			getopenpullsinalfred.Repo("octocat/Hello-World"),
-			getopenpullsinalfred.MustParseRepo("octocat/Hello-World"),
+			vo.Repo("octocat/Hello-World"),
+			vo.MustParseRepo("octocat/Hello-World"),
 		)
 	})
 
@@ -21,14 +21,14 @@ func TestMustParse(t *testing.T) {
 			t,
 			`invalid repo name: ""`,
 			func() {
-				getopenpullsinalfred.MustParseRepo("")
+				vo.MustParseRepo("")
 			},
 		)
 		require.PanicsWithError(
 			t,
 			`invalid repo name: "invalid-repo"`,
 			func() {
-				getopenpullsinalfred.MustParseRepo("invalid-repo")
+				vo.MustParseRepo("invalid-repo")
 			},
 		)
 	})
