@@ -12,7 +12,7 @@ func TestMustParse(t *testing.T) {
 		require.Equal(
 			t,
 			getopenpullsinalfred.Repo("octocat/Hello-World"),
-			getopenpullsinalfred.MustParse("octocat/Hello-World"),
+			getopenpullsinalfred.MustParseRepo("octocat/Hello-World"),
 		)
 	})
 
@@ -21,14 +21,14 @@ func TestMustParse(t *testing.T) {
 			t,
 			`invalid repo name: ""`,
 			func() {
-				getopenpullsinalfred.MustParse("")
+				getopenpullsinalfred.MustParseRepo("")
 			},
 		)
 		require.PanicsWithError(
 			t,
 			`invalid repo name: "invalid-repo"`,
 			func() {
-				getopenpullsinalfred.MustParse("invalid-repo")
+				getopenpullsinalfred.MustParseRepo("invalid-repo")
 			},
 		)
 	})
