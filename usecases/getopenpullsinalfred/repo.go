@@ -1,12 +1,15 @@
 package getopenpullsinalfred
 
-import "errors"
+import (
+	"fmt"
+	"strings"
+)
 
 type Repo string
 
 func MustParse(name string) Repo {
-	if name == "" {
-		panic(errors.New("invalid repo name: \"\""))
+	if !strings.Contains(name, "/") {
+		panic(fmt.Errorf(`invalid repo name: "%s"`, name))
 	}
 
 	return Repo(name)

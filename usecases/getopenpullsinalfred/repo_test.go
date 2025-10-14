@@ -24,5 +24,12 @@ func TestMustParse(t *testing.T) {
 				getopenpullsinalfred.MustParse("")
 			},
 		)
+		require.PanicsWithError(
+			t,
+			`invalid repo name: "invalid-repo"`,
+			func() {
+				getopenpullsinalfred.MustParse("invalid-repo")
+			},
+		)
 	})
 }
