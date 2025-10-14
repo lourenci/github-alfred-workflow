@@ -491,19 +491,21 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
 				map[url.URL][]http.Response{
-					*assert.NoError(url.Parse("https://api.github.com/repos/octocat/Hello-World/pulls?head=user:lourenci&state=open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:lourenci+repo:octocat/Hello-World+state:open")): {
 						{
 							StatusCode: http.StatusOK,
 							Body: io.NopCloser(
 								strings.NewReader(
-									`[
-							{
-								"title": "Amazing PR",
-								"created_at": "2011-01-26T19:01:12Z",
-								"html_url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347"
-							}
-						]
-						`,
+									`{
+										"items": [
+											{
+												"title": "Amazing PR",
+												"created_at": "2011-01-26T19:01:12Z",
+												"html_url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347"
+											}
+										]
+									}
+									`,
 								),
 							),
 						},
@@ -531,7 +533,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 				t,
 				fakeHttpClient.Calls,
 				map[url.URL][]test.Call{
-					*assert.NoError(url.Parse("https://api.github.com/repos/octocat/Hello-World/pulls?head=user:lourenci&state=open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:lourenci+repo:octocat/Hello-World+state:open")): {
 						{
 							Headers: map[string]string{
 								"Authorization":        fmt.Sprintf("Bearer %s", token),
@@ -546,18 +548,20 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
 				map[url.URL][]http.Response{
-					*assert.NoError(url.Parse("https://api.github.com/repos/lourenci/foo/pulls?head=user:bar&state=open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:bar+repo:lourenci/foo+state:open")): {
 						{
 							StatusCode: http.StatusOK,
 							Body: io.NopCloser(
 								strings.NewReader(
-									`[
-							{
-								"title": "Amazing PR 2",
-								"created_at": "2011-01-24T19:01:12Z",
-								"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347"
-							}
-						]
+									`{
+										"items": [
+											{
+												"title": "Amazing PR 2",
+												"created_at": "2011-01-24T19:01:12Z",
+												"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347"
+											}
+										]
+									}
 						`,
 								),
 							),
@@ -587,7 +591,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 				t,
 				fakeHttpClient.Calls,
 				map[url.URL][]test.Call{
-					*assert.NoError(url.Parse("https://api.github.com/repos/lourenci/foo/pulls?head=user:bar&state=open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:bar+repo:lourenci/foo+state:open")): {
 						{
 							Headers: map[string]string{
 								"Authorization":        fmt.Sprintf("Bearer %s", token),

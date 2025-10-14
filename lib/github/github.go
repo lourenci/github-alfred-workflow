@@ -93,12 +93,14 @@ func (g GitHub) WatchedRepos() []Repository {
 }
 
 func (g GitHub) UserOpenPullsOfRepo(repo, user string) []Pull {
-	res := assert.NoError(newDefaultClient(g.httpClient, g.token).get(fmt.Sprintf("https://api.github.com/repos/%s/pulls?head=user:%s&state=open", repo, user)))
+	res := assert.NoError(newDefaultClient(g.httpClient, g.token).get(fmt.Sprintf("https://api.github.com/search/issues?q=is:pr+author:%s+repo:%s+state:open", user, repo)))
 	body := assert.NoError(io.ReadAll(res.Body))
 
-	pulls := pulls{}
+	pulls := struct {
+		Items []Pull `json:"items"`
+	}{}
 	json.Unmarshal(body, &pulls)
-	return pulls
+	return pulls.Items
 }
 
 type defaultClient struct {
