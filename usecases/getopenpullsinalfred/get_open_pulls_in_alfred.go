@@ -21,7 +21,7 @@ type Item struct {
 }
 
 type GithubRepository interface {
-	UserOpenPullsOfRepo(repo vo.Repo, user string) []github.Pull
+	OpenPulls(repo vo.Repo, user string) []github.Pull
 }
 
 type UseCase struct {
@@ -33,7 +33,7 @@ func New(repository GithubRepository) UseCase {
 }
 
 func (r UseCase) GetUserOpenPullsOfRepo(repo vo.Repo, user string) Alfred {
-	repositories := r.repository.UserOpenPullsOfRepo(repo, user)
+	repositories := r.repository.OpenPulls(repo, user)
 
 	return Alfred{
 		Items: collection.Map(repositories, func(repo github.Pull) Item {

@@ -113,6 +113,6 @@ func newFakeRepository(pulls map[string]map[string][]github.Pull) fakeRepository
 
 }
 
-func (f fakeRepository) UserOpenPullsOfRepo(repo vo.Repo, user string) []github.Pull {
+func (f fakeRepository) OpenPulls(repo vo.Repo, user string) []github.Pull {
 	return f.pulls[string(repo)][user]
 }

@@ -43,7 +43,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 		)
 
 		token := "token"
-		pulls := repository.New(github.New(token, fakeHttpClient)).UserOpenPullsOfRepo(vo.MustParseRepo("lourenci/foo"), "bar")
+		pulls := repository.New(github.New(token, fakeHttpClient)).OpenPulls(vo.MustParseRepo("lourenci/foo"), "bar")
 
 		require.Equal(
 			t,

@@ -13,6 +13,6 @@ func New(githubHttpClient github.GitHub) repository {
 	return repository{httpClient: githubHttpClient}
 }
 
-func (s repository) UserOpenPullsOfRepo(repo vo.Repo, user string) []github.Pull {
+func (s repository) OpenPulls(repo vo.Repo, user string) []github.Pull {
 	return s.httpClient.OpenPulls(string(repo), user)
 }
