@@ -5,6 +5,7 @@ import (
 
 	"github.com/lourenci/github-alfred/lib/collection"
 	"github.com/lourenci/github-alfred/lib/github"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
 )
 
 type Alfred struct {
@@ -20,7 +21,7 @@ type Item struct {
 }
 
 type GithubRepository interface {
-	UserOpenPullsOfRepo(repo, user string) []github.Pull
+	UserOpenPullsOfRepo(repo vo.Repo, user string) []github.Pull
 }
 
 type UseCase struct {
@@ -31,7 +32,7 @@ func New(repository GithubRepository) UseCase {
 	return UseCase{repository: repository}
 }
 
-func (r UseCase) GetUserOpenPullsOfRepo(repo, user string) Alfred {
+func (r UseCase) GetUserOpenPullsOfRepo(repo vo.Repo, user string) Alfred {
 	repositories := r.repository.UserOpenPullsOfRepo(repo, user)
 
 	return Alfred{

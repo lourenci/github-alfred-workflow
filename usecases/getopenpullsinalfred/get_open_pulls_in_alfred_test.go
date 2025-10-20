@@ -5,6 +5,7 @@ import (
 
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
 	"github.com/stretchr/testify/require"
 )
 
@@ -112,6 +113,6 @@ func newFakeRepository(pulls map[string]map[string][]github.Pull) fakeRepository
 
 }
 
-func (f fakeRepository) UserOpenPullsOfRepo(repo, user string) []github.Pull {
-	return f.pulls[repo][user]
+func (f fakeRepository) UserOpenPullsOfRepo(repo vo.Repo, user string) []github.Pull {
+	return f.pulls[string(repo)][user]
 }

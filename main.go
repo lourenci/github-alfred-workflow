@@ -11,8 +11,10 @@ import (
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http"
 	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred"
+	getOpenPullsRepository "github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/repository"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
 	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred"
-	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
+	getUsersRepository "github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
 )
 
 func main() {
@@ -23,7 +25,7 @@ func main() {
 		cacheInMinutes, _ := strconv.Atoi(os.Args[3])
 
 		useCase := getuserreposinalfred.New(
-			repository.New(github.New(token, http.New())),
+			getUsersRepository.New(github.New(token, http.New())),
 		)
 
 		json := assert.NoError(json.Marshal(useCase.GetUserReposInAlfred(
@@ -36,10 +38,13 @@ func main() {
 		user := os.Args[4]
 
 		useCase := getopenpullsinalfred.New(
-			github.New(token, http.New()),
+			getOpenPullsRepository.New(github.New(token, http.New())),
 		)
 
-		json := assert.NoError(json.Marshal(useCase.GetUserOpenPullsOfRepo(repoName, user)))
+		json := assert.NoError(json.Marshal(useCase.GetUserOpenPullsOfRepo(
+			vo.MustParseRepo(repoName),
+			user,
+		)))
 
 		fmt.Println(string(json))
 	default:
