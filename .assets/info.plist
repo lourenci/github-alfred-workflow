@@ -57,6 +57,29 @@
 				<false/>
 			</dict>
 		</array>
+		<key>5333A5DC-C21A-42FB-9D0A-B8FB88B31837</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>271775A2-2D4B-445A-BED3-B3D8E632F8D2</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>BF5A2A6F-CB8B-4CBD-8B3A-E8397D84BB89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>5ED44AA0-3921-4A16-915D-7CF0646139B7</key>
 		<array>
 			<dict>
@@ -97,7 +120,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>AFEBD281-CE80-49A8-9B2C-BA47FF986CAF</string>
+				<string>5333A5DC-C21A-42FB-9D0A-B8FB88B31837</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -119,41 +142,8 @@
 				<false/>
 			</dict>
 		</array>
-		<key>AFEBD281-CE80-49A8-9B2C-BA47FF986CAF</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>271775A2-2D4B-445A-BED3-B3D8E632F8D2</string>
-				<key>modifiers</key>
-				<integer>524288</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>BF5A2A6F-CB8B-4CBD-8B3A-E8397D84BB89</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>F89437FE-C9E0-49A9-9B55-F2B1EF0AFC05</key>
 		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>BF5A2A6F-CB8B-4CBD-8B3A-E8397D84BB89</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
 			<dict>
 				<key>destinationuid</key>
 				<string>436F2CFF-0BE1-4380-B95D-79607D0B83E6</string>
@@ -163,6 +153,16 @@
 				<string></string>
 				<key>sourceoutputuid</key>
 				<string>81891786-DB79-4AFB-B52A-82B34D19E5D7</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>BF5A2A6F-CB8B-4CBD-8B3A-E8397D84BB89</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -228,6 +228,80 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>cat &lt;&lt; EOF
+	{
+		"items": [
+			{
+				"uid": "$repo_url/pulls",
+				"arg": "$repo_url/pulls",
+				"title": "See pulls page",
+				"subtitle": "Press ⎇ to list your open PRs",
+				"mods": {
+					"alt:": {
+						"title": "List your open PRs"
+					}
+				}
+			},
+			{
+				"uid": "$repo_url/commits",
+				"arg": "$repo_url/commits",
+				"title": "See commits page"
+			},
+			{
+				"uid": "$repo_url/issues",
+				"arg": "$repo_url/issues",
+				"title": "See issues page"
+			}
+		]
+	}
+EOF
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>type</key>
+				<integer>11</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>5333A5DC-C21A-42FB-9D0A-B8FB88B31837</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argument</key>
 				<string></string>
 				<key>passthroughargument</key>
@@ -277,35 +351,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>fixedorder</key>
-				<false/>
-				<key>items</key>
-				<string>[{"title":"Commits","arg":"{var:repo_url}\/commits","subtitle":"See commits page"},{"title":"PRs","arg":"{var:repo_url}\/pulls","subtitle":"See pulls page (⌥: open pulls)"},{"title":"Issues","arg":"{var:repo_url}\/issues","subtitle":"See issues page"}]</string>
-				<key>matchmode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string></string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.listfilter</string>
-			<key>uid</key>
-			<string>AFEBD281-CE80-49A8-9B2C-BA47FF986CAF</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>delimiter</key>
 				<string>,</string>
 				<key>discardemptyarguments</key>
@@ -345,6 +390,50 @@
 			<string>94B0F877-16CB-4135-83DC-B22570C6B6F9</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+				<key>title</key>
+				<string>You can now use the Github workflow!</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>go build .</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>11</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>436F2CFF-0BE1-4380-B95D-79607D0B83E6</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -465,50 +554,6 @@ fi
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>go build .</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>11</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>436F2CFF-0BE1-4380-B95D-79607D0B83E6</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string></string>
-				<key>title</key>
-				<string>You can now use the Github workflow!</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -517,79 +562,79 @@ fi
 		<key>1267C75E-61E2-4957-8BF8-A837EF6E6968</key>
 		<dict>
 			<key>xpos</key>
-			<real>665</real>
+			<real>690</real>
 			<key>ypos</key>
-			<real>655</real>
+			<real>320</real>
 		</dict>
 		<key>271775A2-2D4B-445A-BED3-B3D8E632F8D2</key>
 		<dict>
 			<key>xpos</key>
 			<real>985</real>
 			<key>ypos</key>
-			<real>90</real>
+			<real>110</real>
 		</dict>
 		<key>3A6FF4F5-9BE0-4232-88DB-A8FC819F9D9F</key>
 		<dict>
 			<key>xpos</key>
 			<real>1340</real>
 			<key>ypos</key>
-			<real>45</real>
+			<real>75</real>
 		</dict>
 		<key>436F2CFF-0BE1-4380-B95D-79607D0B83E6</key>
 		<dict>
 			<key>xpos</key>
-			<real>515</real>
+			<real>525</real>
 			<key>ypos</key>
-			<real>655</real>
+			<real>320</real>
+		</dict>
+		<key>5333A5DC-C21A-42FB-9D0A-B8FB88B31837</key>
+		<dict>
+			<key>xpos</key>
+			<real>700</real>
+			<key>ypos</key>
+			<real>90</real>
 		</dict>
 		<key>5ED44AA0-3921-4A16-915D-7CF0646139B7</key>
 		<dict>
 			<key>xpos</key>
 			<real>1195</real>
 			<key>ypos</key>
-			<real>85</real>
+			<real>105</real>
 		</dict>
 		<key>626049A8-6F5D-4048-B369-979A2FF17525</key>
 		<dict>
 			<key>xpos</key>
 			<real>135</real>
 			<key>ypos</key>
-			<real>305</real>
+			<real>415</real>
 		</dict>
 		<key>94B0F877-16CB-4135-83DC-B22570C6B6F9</key>
 		<dict>
 			<key>xpos</key>
 			<real>545</real>
 			<key>ypos</key>
-			<real>165</real>
+			<real>120</real>
 		</dict>
 		<key>97E783F2-6E0B-4232-94ED-0A4839506C31</key>
 		<dict>
 			<key>xpos</key>
 			<real>430</real>
 			<key>ypos</key>
-			<real>165</real>
-		</dict>
-		<key>AFEBD281-CE80-49A8-9B2C-BA47FF986CAF</key>
-		<dict>
-			<key>xpos</key>
-			<real>670</real>
-			<key>ypos</key>
-			<real>135</real>
+			<real>120</real>
 		</dict>
 		<key>BF5A2A6F-CB8B-4CBD-8B3A-E8397D84BB89</key>
 		<dict>
 			<key>xpos</key>
-			<real>1590</real>
+			<real>1655</real>
 			<key>ypos</key>
-			<real>525</real>
+			<real>560</real>
 		</dict>
 		<key>F89437FE-C9E0-49A9-9B55-F2B1EF0AFC05</key>
 		<dict>
 			<key>xpos</key>
-			<real>475</real>
+			<real>395</real>
 			<key>ypos</key>
-			<real>380</real>
+			<real>555</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
