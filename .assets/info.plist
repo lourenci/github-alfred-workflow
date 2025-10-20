@@ -181,6 +181,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>5ED44AA0-3921-4A16-915D-7CF0646139B7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -258,22 +275,24 @@
 				"uid": "$repo_url/pulls",
 				"arg": "$repo_url/pulls",
 				"title": "See pulls page",
-				"subtitle": "Press ⎇ to list your open PRs",
+				"subtitle": "⎇-return: list your open PRs | return: open in browser",
 				"mods": {
-					"alt:": {
-						"title": "List your open PRs"
+					"alt": {
+						"subtitle": "List your open PRs"
 					}
 				}
 			},
 			{
 				"uid": "$repo_url/commits",
 				"arg": "$repo_url/commits",
-				"title": "See commits page"
+				"title": "See commits page",
+				"subtitle": "return: open in browser"
 			},
 			{
 				"uid": "$repo_url/issues",
 				"arg": "$repo_url/issues",
-				"title": "See issues page"
+				"title": "See issues page",
+				"subtitle": "return: open in browser"
 			}
 		]
 	}
@@ -298,23 +317,6 @@ EOF
 			<string>5333A5DC-C21A-42FB-9D0A-B8FB88B31837</string>
 			<key>version</key>
 			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argument</key>
-				<string></string>
-				<key>passthroughargument</key>
-				<false/>
-				<key>variables</key>
-				<dict/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
-			<key>uid</key>
-			<string>5ED44AA0-3921-4A16-915D-7CF0646139B7</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -351,27 +353,6 @@ EOF
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>delimiter</key>
-				<string>,</string>
-				<key>discardemptyarguments</key>
-				<false/>
-				<key>outputas</key>
-				<integer>0</integer>
-				<key>trimarguments</key>
-				<true/>
-				<key>variableprefix</key>
-				<string>split</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.split</string>
-			<key>uid</key>
-			<string>97E783F2-6E0B-4232-94ED-0A4839506C31</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argument</key>
 				<string></string>
 				<key>passthroughargument</key>
@@ -394,21 +375,21 @@ EOF
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
+				<key>delimiter</key>
+				<string>,</string>
+				<key>discardemptyarguments</key>
 				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string></string>
-				<key>title</key>
-				<string>You can now use the Github workflow!</string>
+				<key>outputas</key>
+				<integer>0</integer>
+				<key>trimarguments</key>
+				<true/>
+				<key>variableprefix</key>
+				<string>split</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.utility.split</string>
 			<key>uid</key>
-			<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
+			<string>97E783F2-6E0B-4232-94ED-0A4839506C31</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -434,6 +415,27 @@ EOF
 			<string>436F2CFF-0BE1-4380-B95D-79607D0B83E6</string>
 			<key>version</key>
 			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+				<key>title</key>
+				<string>You can now use the Github workflow!</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -597,9 +599,9 @@ fi
 		<key>5ED44AA0-3921-4A16-915D-7CF0646139B7</key>
 		<dict>
 			<key>xpos</key>
-			<real>1195</real>
+			<real>1190</real>
 			<key>ypos</key>
-			<real>105</real>
+			<real>65</real>
 		</dict>
 		<key>626049A8-6F5D-4048-B369-979A2FF17525</key>
 		<dict>
