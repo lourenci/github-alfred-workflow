@@ -92,7 +92,7 @@ func (g GitHub) WatchedRepos() []Repository {
 	return all_repositories
 }
 
-func (g GitHub) UserOpenPullsOfRepo(repo, user string) []Pull {
+func (g GitHub) OpenPulls(repo, user string) []Pull {
 	res := assert.NoError(newDefaultClient(g.httpClient, g.token).get(fmt.Sprintf("https://api.github.com/search/issues?q=is:pr+author:%s+repo:%s+state:open", user, repo)))
 	body := assert.NoError(io.ReadAll(res.Body))
 

@@ -486,7 +486,7 @@ func TestWatchedRepos(t *testing.T) {
 	})
 }
 
-func TestUserOpenPullsOfRepo(t *testing.T) {
+func TestOpenPulls(t *testing.T) {
 	t.Run("returns a list of the user's open pull requests of a repo", func(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
@@ -516,7 +516,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 
 			githubClient := github.New(token, fakeHttpClient)
 
-			pulls := githubClient.UserOpenPullsOfRepo("octocat/Hello-World", "lourenci")
+			pulls := githubClient.OpenPulls("octocat/Hello-World", "lourenci")
 
 			require.Equal(
 				t,
@@ -574,7 +574,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 
 			githubClient := github.New(token, fakeHttpClient)
 
-			pulls := githubClient.UserOpenPullsOfRepo("lourenci/foo", "bar")
+			pulls := githubClient.OpenPulls("lourenci/foo", "bar")
 
 			require.Equal(
 				t,
