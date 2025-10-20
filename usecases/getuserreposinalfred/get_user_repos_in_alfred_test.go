@@ -48,7 +48,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 							},
 							Alt: getuserreposinalfred.Alt{
 								Subtitle: "See options",
-								Arg:      "octocat/Hello-World",
+								Arg:      "https://github.com/octocat/Hello-World,octocat/Hello-World",
 							},
 						},
 						Arg: "https://github.com/octocat/Hello-World",
@@ -66,7 +66,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 							},
 							Alt: getuserreposinalfred.Alt{
 								Subtitle: "See options",
-								Arg:      "octocat/foo",
+								Arg:      "https://github.com/octocat/foo,octocat/foo",
 							},
 						},
 						Arg: "https://github.com/octocat/foo",

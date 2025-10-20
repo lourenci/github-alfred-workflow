@@ -77,7 +77,7 @@ func (r UseCase) GetUserReposInAlfred(cacheDuration time.Duration) Alfred {
 					},
 					Alt: Alt{
 						Subtitle: "See options",
-						Arg:      repo.Name,
+						Arg:      fmt.Sprintf("%s,%s", repo.URL, repo.Name),
 					},
 				},
 				Arg: repo.URL,
