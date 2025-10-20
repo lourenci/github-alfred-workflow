@@ -10,7 +10,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>3A6FF4F5-9BE0-4232-88DB-A8FC819F9D9F</string>
+				<string>5ED44AA0-3921-4A16-915D-7CF0646139B7</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -49,6 +49,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>5ED44AA0-3921-4A16-915D-7CF0646139B7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3A6FF4F5-9BE0-4232-88DB-A8FC819F9D9F</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -169,15 +182,15 @@
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
-				<false/>
+				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
+				<integer>2</integer>
 				<key>argumenttreatemptyqueryasnil</key>
 				<true/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>2</integer>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>queuedelaycustom</key>
@@ -203,7 +216,7 @@
 				<key>type</key>
 				<integer>11</integer>
 				<key>withspace</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
@@ -215,29 +228,17 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>fixedorder</key>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
 				<false/>
-				<key>items</key>
-				<string>[{"title":"Commits","arg":"{var:repo_url}\/commits","subtitle":"See commits page"},{"title":"PRs","arg":"{var:repo_url}\/pulls","subtitle":"See pulls page"},{"title":"Issues","arg":"{var:repo_url}\/issues","subtitle":"See issues page"}]</string>
-				<key>matchmode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string></string>
-				<key>withspace</key>
-				<false/>
+				<key>variables</key>
+				<dict/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.listfilter</string>
+			<string>alfred.workflow.utility.argument</string>
 			<key>uid</key>
-			<string>AFEBD281-CE80-49A8-9B2C-BA47FF986CAF</string>
+			<string>5ED44AA0-3921-4A16-915D-7CF0646139B7</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -276,6 +277,35 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>fixedorder</key>
+				<false/>
+				<key>items</key>
+				<string>[{"title":"Commits","arg":"{var:repo_url}\/commits","subtitle":"See commits page"},{"title":"PRs","arg":"{var:repo_url}\/pulls","subtitle":"See pulls page (⌥: open pulls)"},{"title":"Issues","arg":"{var:repo_url}\/issues","subtitle":"See issues page"}]</string>
+				<key>matchmode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.listfilter</string>
+			<key>uid</key>
+			<string>AFEBD281-CE80-49A8-9B2C-BA47FF986CAF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>delimiter</key>
 				<string>,</string>
 				<key>discardemptyarguments</key>
@@ -304,9 +334,9 @@
 				<key>variables</key>
 				<dict>
 					<key>repo_name</key>
-					<string>split2</string>
+					<string>{var:split2}</string>
 					<key>repo_url</key>
-					<string>split1</string>
+					<string>{var:split1}</string>
 				</dict>
 			</dict>
 			<key>type</key>
@@ -494,9 +524,9 @@ fi
 		<key>271775A2-2D4B-445A-BED3-B3D8E632F8D2</key>
 		<dict>
 			<key>xpos</key>
-			<real>1145</real>
+			<real>985</real>
 			<key>ypos</key>
-			<real>150</real>
+			<real>90</real>
 		</dict>
 		<key>3A6FF4F5-9BE0-4232-88DB-A8FC819F9D9F</key>
 		<dict>
@@ -511,6 +541,13 @@ fi
 			<real>515</real>
 			<key>ypos</key>
 			<real>655</real>
+		</dict>
+		<key>5ED44AA0-3921-4A16-915D-7CF0646139B7</key>
+		<dict>
+			<key>xpos</key>
+			<real>1195</real>
+			<key>ypos</key>
+			<real>85</real>
 		</dict>
 		<key>626049A8-6F5D-4048-B369-979A2FF17525</key>
 		<dict>
