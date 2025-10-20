@@ -10,7 +10,7 @@ test: ## Run all the tests
 
 .PHONY: build-workflow
 build-workflow: ## Copy all the source files to the workflow
-	@rm -rf ./.workflow
-	@cp -R ./.assets ./.workflow/
-	@mkdir -p ./.workflow && rsync -av --exclude='*_test.go' --exclude='.git/' --exclude='.assets/' --exclude='.workflow/' . ./.workflow/
-	@zip -r "GitHub.alfredworkflow" ./.workflow
+	@DESTINATION=$$(mktemp -d); \
+	cp -r .assets/* "$${DESTINATION}/"; \
+	rsync -av --exclude='*_test.go' --exclude='.git/' --exclude='.assets/' --exclude='.DS_Store' . "$${DESTINATION}"; \
+	ditto -ck "$${DESTINATION}" "./GitHub.alfredworkflow"
