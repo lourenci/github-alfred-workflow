@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/lourenci/github-alfred/lib/github"
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 )
 
 type repository struct {

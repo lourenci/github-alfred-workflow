@@ -11,8 +11,8 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http/test"
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/repository"
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/repository"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 	"github.com/stretchr/testify/require"
 )
 

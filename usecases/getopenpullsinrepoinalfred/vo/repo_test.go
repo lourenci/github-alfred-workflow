@@ -3,7 +3,7 @@ package vo_test
 import (
 	"testing"
 
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 	"github.com/stretchr/testify/require"
 )
 

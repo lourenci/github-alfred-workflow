@@ -1,11 +1,11 @@
-package getopenpullsinalfred
+package getopenpullsinrepoinalfred
 
 import (
 	"fmt"
 
 	"github.com/lourenci/github-alfred/lib/collection"
 	"github.com/lourenci/github-alfred/lib/github"
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 )
 
 type Alfred struct {

@@ -1,18 +1,18 @@
-package getopenpullsinalfred_test
+package getopenpullsinrepoinalfred_test
 
 import (
 	"testing"
 
 	"github.com/lourenci/github-alfred/lib/github"
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred"
-	"github.com/lourenci/github-alfred/usecases/getopenpullsinalfred/vo"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGetUserReposInAlfred(t *testing.T) {
 	t.Run("returns all open pr of a repo from a user", func(t *testing.T) {
 		{
-			alfred := getopenpullsinalfred.New(
+			alfred := getopenpullsinrepoinalfred.New(
 				newFakeRepository(
 					map[string]map[string][]github.Pull{
 						"octocat/Hello-World": {
@@ -35,8 +35,8 @@ func TestGetUserReposInAlfred(t *testing.T) {
 
 			require.Equal(
 				t,
-				getopenpullsinalfred.Alfred{
-					Items: []getopenpullsinalfred.Item{
+				getopenpullsinrepoinalfred.Alfred{
+					Items: []getopenpullsinrepoinalfred.Item{
 						{
 							UID:      "https://github.com/repos/octocat/Hello-World/pulls/1347",
 							Title:    "Amazing PR",
@@ -57,7 +57,7 @@ func TestGetUserReposInAlfred(t *testing.T) {
 			)
 		}
 		{
-			alfred := getopenpullsinalfred.New(
+			alfred := getopenpullsinrepoinalfred.New(
 				newFakeRepository(
 					map[string]map[string][]github.Pull{
 						"foo/bar": {
@@ -80,8 +80,8 @@ func TestGetUserReposInAlfred(t *testing.T) {
 
 			require.Equal(
 				t,
-				getopenpullsinalfred.Alfred{
-					Items: []getopenpullsinalfred.Item{
+				getopenpullsinrepoinalfred.Alfred{
+					Items: []getopenpullsinrepoinalfred.Item{
 						{
 							UID:      "https://github.com/repos/foo/bar/pulls/1347",
 							Title:    "Foo PR",
