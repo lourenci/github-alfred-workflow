@@ -31,7 +31,6 @@ type Pull struct {
 }
 
 type repositories []Repository
-type pulls []Pull
 
 type HttpClient interface {
 	Get(url url.URL, headers map[string]string) (*http.Response, error)
