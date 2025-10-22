@@ -11,6 +11,7 @@ import (
 	"strconv"
 
 	"github.com/lourenci/github-alfred/lib/assert"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 )
 
 type GitHub struct {
@@ -162,10 +163,22 @@ func (u UserQuery) QueryString() string {
 	return fmt.Sprintf("author:%s", u.user)
 }
 
-func MustParseQueryUser(user string) UserQuery {
+func MustParseUserQuery(user string) UserQuery {
 	if user == "" {
 		panic(errors.New("invalid user"))
 	}
 
 	return UserQuery{user: user}
+}
+
+type RepoQuery struct {
+	repo vo.Repo
+}
+
+func (u RepoQuery) QueryString() string {
+	return fmt.Sprintf("repo:%s", u.repo)
+}
+
+func MustParseRepoQuery(repo vo.Repo) RepoQuery {
+	return RepoQuery{repo: repo}
 }

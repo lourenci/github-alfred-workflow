@@ -11,6 +11,7 @@ import (
 	"github.com/lourenci/github-alfred/lib/assert"
 	"github.com/lourenci/github-alfred/lib/github"
 	"github.com/lourenci/github-alfred/lib/http/test"
+	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 	"github.com/stretchr/testify/require"
 )
 
@@ -609,19 +610,33 @@ func TestOpenPulls(t *testing.T) {
 func TestUserQuery(t *testing.T) {
 	t.Run("returns the query string for user", func(t *testing.T) {
 		require.PanicsWithError(t, "invalid user", func() {
-			github.MustParseQueryUser("")
+			github.MustParseUserQuery("")
 		})
 
 		require.Equal(
 			t,
-			github.MustParseQueryUser("lourenci").QueryString(),
+			github.MustParseUserQuery("lourenci").QueryString(),
 			"author:lourenci",
 		)
 		require.Equal(
 			t,
-			github.MustParseQueryUser("foo").QueryString(),
+			github.MustParseUserQuery("foo").QueryString(),
 			"author:foo",
 		)
+	})
+}
 
+func TestRepoQuery(t *testing.T) {
+	t.Run("returns the query string for user", func(t *testing.T) {
+		require.Equal(
+			t,
+			github.MustParseRepoQuery(vo.MustParseRepo("foo/bar")).QueryString(),
+			"repo:foo/bar",
+		)
+		require.Equal(
+			t,
+			github.MustParseRepoQuery(vo.MustParseRepo("bar/foo")).QueryString(),
+			"repo:bar/foo",
+		)
 	})
 }
