@@ -21,32 +21,34 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
-      - name: Get previous tag
-        id: previoustag
+      - name: Check for Bump commit
+        id: check_feat
         run: |
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)
-          echo "tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          
+          if [[ "$COMMIT_MSG" == Bump* ]]; then
+            echo "should_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_release=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Generate version tag
+        if: steps.check_feat.outputs.should_release == 'true'
         id: version
         run: |
           VERSION="v$(date +'%Y.%m.%d-%H%M%S')"
           echo "tag=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Generate changelog
+        if: steps.check_feat.outputs.should_release == 'true'
         id: changelog
         run: |
-          # Generate changelog between previous tag and HEAD
-          PREVIOUS_TAG="${{ steps.previoustag.outputs.tag }}"
-
-          # Create changelog
-          CHANGELOG=$(git log ${PREVIOUS_TAG}..HEAD --pretty=format:"- %s (%h) by %an" --no-merges)
+          # Get the body of the Bump commit
+          CHANGELOG=$(git log -1 --pretty=format:"%b")
 
           if [ -z "$CHANGELOG" ]; then
-            CHANGELOG="No changes since last release"
+            CHANGELOG="No changelog provided"
           fi
 
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
@@ -54,17 +56,16 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Build/prepare release artifact
+        if: steps.check_feat.outputs.should_release == 'true'
         run: make build-workflow
 
       - name: Create Release
+        if: steps.check_feat.outputs.should_release == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
           name: Release ${{ steps.version.outputs.tag }}
-          body: |
-            ## Changes since ${{ steps.previoustag.outputs.tag }}
-
-            ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.changelog.outputs.changelog }}
           files: |
             GitHub.alfredworkflow
           draft: false
