@@ -605,3 +605,23 @@ func TestOpenPulls(t *testing.T) {
 		}
 	})
 }
+
+func TestUserQuery(t *testing.T) {
+	t.Run("returns the query string for user", func(t *testing.T) {
+		require.PanicsWithError(t, "invalid user", func() {
+			github.MustParseQueryUser("")
+		})
+
+		require.Equal(
+			t,
+			github.MustParseQueryUser("lourenci").QueryString(),
+			"author:lourenci",
+		)
+		require.Equal(
+			t,
+			github.MustParseQueryUser("foo").QueryString(),
+			"author:foo",
+		)
+
+	})
+}

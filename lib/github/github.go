@@ -2,6 +2,7 @@ package github
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -151,4 +152,20 @@ func (c defaultClient) get(urlString string) (*http.Response, error) {
 			"X-GitHub-Api-Version": "2022-11-28",
 		},
 	)
+}
+
+type UserQuery struct {
+	user string
+}
+
+func (u UserQuery) QueryString() string {
+	return fmt.Sprintf("author:%s", u.user)
+}
+
+func MustParseQueryUser(user string) UserQuery {
+	if user == "" {
+		panic(errors.New("invalid user"))
+	}
+
+	return UserQuery{user: user}
 }
