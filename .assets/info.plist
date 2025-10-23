@@ -6,6 +6,19 @@
 	<string>com.lourenci.github-alfred</string>
 	<key>connections</key>
 	<dict>
+		<key>1D972E4C-E565-41A7-A8ED-74CE236DD2A5</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EC00C8EB-0F5D-450E-8F14-B37E516A45D6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>271775A2-2D4B-445A-BED3-B3D8E632F8D2</key>
 		<array>
 			<dict>
@@ -134,6 +147,31 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>94B0F877-16CB-4135-83DC-B22570C6B6F9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EC00C8EB-0F5D-450E-8F14-B37E516A45D6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>436F2CFF-0BE1-4380-B95D-79607D0B83E6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>81891786-DB79-4AFB-B52A-82B34D19E5D7</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>BF5A2A6F-CB8B-4CBD-8B3A-E8397D84BB89</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -353,6 +391,27 @@ EOF
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>delimiter</key>
+				<string>,</string>
+				<key>discardemptyarguments</key>
+				<false/>
+				<key>outputas</key>
+				<integer>0</integer>
+				<key>trimarguments</key>
+				<true/>
+				<key>variableprefix</key>
+				<string>split</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.split</string>
+			<key>uid</key>
+			<string>97E783F2-6E0B-4232-94ED-0A4839506C31</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argument</key>
 				<string></string>
 				<key>passthroughargument</key>
@@ -375,21 +434,21 @@ EOF
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>delimiter</key>
-				<string>,</string>
-				<key>discardemptyarguments</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>outputas</key>
-				<integer>0</integer>
-				<key>trimarguments</key>
-				<true/>
-				<key>variableprefix</key>
-				<string>split</string>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+				<key>title</key>
+				<string>You can now use the Github workflow!</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.split</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>97E783F2-6E0B-4232-94ED-0A4839506C31</string>
+			<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -415,27 +474,6 @@ EOF
 			<string>436F2CFF-0BE1-4380-B95D-79607D0B83E6</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string></string>
-				<key>title</key>
-				<string>You can now use the Github workflow!</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>1267C75E-61E2-4957-8BF8-A837EF6E6968</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -556,6 +594,104 @@ fi
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>{var:my_pulls_trigger}</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>if [ ! -f "./github-alfred" ]; then
+    # Output Alfred JSON to prompt user to compile
+ cat &lt;&lt; 'EOF'
+{
+  "items": [
+    {
+      "arg": "compile-script",
+      "title": "Compile the binary first",
+      "subtitle": "Press ↩ to compile. You will be notified when it’s done."
+    }
+  ]
+}
+EOF
+else
+  ./github-alfred "$token" "user-pulls" "$username"
+fi
+
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Getting your open puls...</string>
+				<key>type</key>
+				<integer>11</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>1D972E4C-E565-41A7-A8ED-74CE236DD2A5</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string></string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>compile-script</string>
+						<key>outputlabel</key>
+						<string>compile</string>
+						<key>uid</key>
+						<string>81891786-DB79-4AFB-B52A-82B34D19E5D7</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>else</string>
+				<key>hideelse</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>EC00C8EB-0F5D-450E-8F14-B37E516A45D6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -564,9 +700,16 @@ fi
 		<key>1267C75E-61E2-4957-8BF8-A837EF6E6968</key>
 		<dict>
 			<key>xpos</key>
-			<real>690</real>
+			<real>890</real>
 			<key>ypos</key>
-			<real>320</real>
+			<real>400</real>
+		</dict>
+		<key>1D972E4C-E565-41A7-A8ED-74CE236DD2A5</key>
+		<dict>
+			<key>xpos</key>
+			<real>140</real>
+			<key>ypos</key>
+			<real>680</real>
 		</dict>
 		<key>271775A2-2D4B-445A-BED3-B3D8E632F8D2</key>
 		<dict>
@@ -585,9 +728,9 @@ fi
 		<key>436F2CFF-0BE1-4380-B95D-79607D0B83E6</key>
 		<dict>
 			<key>xpos</key>
-			<real>525</real>
+			<real>725</real>
 			<key>ypos</key>
-			<real>320</real>
+			<real>400</real>
 		</dict>
 		<key>5333A5DC-C21A-42FB-9D0A-B8FB88B31837</key>
 		<dict>
@@ -630,6 +773,13 @@ fi
 			<real>1655</real>
 			<key>ypos</key>
 			<real>560</real>
+		</dict>
+		<key>EC00C8EB-0F5D-450E-8F14-B37E516A45D6</key>
+		<dict>
+			<key>xpos</key>
+			<real>435</real>
+			<key>ypos</key>
+			<real>700</real>
 		</dict>
 		<key>F89437FE-C9E0-49A9-9B55-F2B1EF0AFC05</key>
 		<dict>
@@ -725,9 +875,28 @@ fi
 			<key>variable</key>
 			<string>keyword_trigger</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Keyword to trigger your open pulls</string>
+			<key>label</key>
+			<string>Keyword for my pulls</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>my_pulls_trigger</string>
+		</dict>
 	</array>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
 	<string>1.0.0</string>
 	<key>webaddress</key>
