@@ -30,7 +30,8 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 											{
 												"title": "Amazing PR 2",
 												"created_at": "2011-01-24T19:01:12Z",
-												"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347"
+												"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347",
+												"repository_url": "https://api.github.com/repos/lourenci/foo"
 											}
 										]
 									}
@@ -49,9 +50,10 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 			t,
 			[]github.Pull{
 				{
-					Title:     "Amazing PR 2",
-					CreatedAt: "2011-01-24T19:01:12Z",
-					URL:       "https://api.github.com/repos/lourenci/foo/pulls/1347",
+					Title:          "Amazing PR 2",
+					CreatedAt:      "2011-01-24T19:01:12Z",
+					URL:            "https://api.github.com/repos/lourenci/foo/pulls/1347",
+					RepositoryName: "lourenci/foo",
 				},
 			},
 			pulls,

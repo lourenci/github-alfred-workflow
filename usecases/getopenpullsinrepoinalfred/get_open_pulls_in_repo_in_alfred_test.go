@@ -18,14 +18,16 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						"octocat/Hello-World": {
 							"john": []github.Pull{
 								{
-									Title:     "Amazing PR",
-									CreatedAt: "2011-01-26T19:01:12Z",
-									URL:       "https://github.com/repos/octocat/Hello-World/pulls/1347",
+									Title:          "Amazing PR",
+									CreatedAt:      "2011-01-26T19:01:12Z",
+									URL:            "https://github.com/repos/octocat/Hello-World/pulls/1347",
+									RepositoryName: "octocat/Hello-World",
 								},
 								{
-									Title:     "Amazing PR 2",
-									CreatedAt: "2011-01-24T19:01:12Z",
-									URL:       "https://github.com/repos/octocat/Hello-World/pulls/1348",
+									Title:          "Amazing PR 2",
+									CreatedAt:      "2011-01-24T19:01:12Z",
+									URL:            "https://github.com/repos/octocat/Hello-World/pulls/1348",
+									RepositoryName: "octocat/Hello-World",
 								},
 							},
 						},
@@ -63,14 +65,16 @@ func TestGetUserReposInAlfred(t *testing.T) {
 						"foo/bar": {
 							"alice": []github.Pull{
 								{
-									Title:     "Foo PR",
-									CreatedAt: "2011-02-26T19:01:12Z",
-									URL:       "https://github.com/repos/foo/bar/pulls/1347",
+									Title:          "Foo PR",
+									CreatedAt:      "2011-02-26T19:01:12Z",
+									URL:            "https://github.com/repos/foo/bar/pulls/1347",
+									RepositoryName: "foo/bar",
 								},
 								{
-									Title:     "Foo PR 2",
-									CreatedAt: "2011-03-24T19:01:12Z",
-									URL:       "https://github.com/repos/foo/bar/pulls/1348",
+									Title:          "Foo PR 2",
+									CreatedAt:      "2011-03-24T19:01:12Z",
+									URL:            "https://github.com/repos/foo/bar/pulls/1348",
+									RepositoryName: "foo/bar",
 								},
 							},
 						},

@@ -35,12 +35,10 @@ type Pull struct {
 }
 
 type pull struct {
-	Title      string `json:"title"`
-	CreatedAt  string `json:"created_at"`
-	URL        string `json:"html_url"`
-	Repository struct {
-		Name string `json:"full_name"`
-	} `json:"repository"`
+	Title         string `json:"title"`
+	CreatedAt     string `json:"created_at"`
+	URL           string `json:"html_url"`
+	RepositoryURL string `json:"repository_url"`
 }
 
 type repositories []Repository
@@ -128,7 +126,7 @@ func (g GitHub) OpenPulls(query openPullsQuery) []Pull {
 				Title:          it.Title,
 				CreatedAt:      it.CreatedAt,
 				URL:            it.URL,
-				RepositoryName: it.Repository.Name,
+				RepositoryName: string(vo.MustParseRepoFromUrl(it.RepositoryURL)),
 			}
 		},
 	)
