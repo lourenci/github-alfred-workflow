@@ -14,5 +14,8 @@ func New(githubHttpClient github.GitHub) repository {
 }
 
 func (s repository) OpenPulls(repo vo.Repo, user string) []github.Pull {
-	return s.httpClient.OpenPulls(string(repo), user)
+	return s.httpClient.OpenPulls(github.NewOpenPullsQuery(
+		github.MustParseRepoQuery(repo),
+		github.MustParseUserQuery(user),
+	))
 }

@@ -93,8 +93,16 @@ func (g GitHub) WatchedRepos() []Repository {
 	return all_repositories
 }
 
-func (g GitHub) OpenPulls(repo, user string) []Pull {
-	res := assert.NoError(newDefaultClient(g.httpClient, g.token).get(fmt.Sprintf("https://api.github.com/search/issues?q=is:pr+author:%s+repo:%s+state:open", user, repo)))
+type openPullsQuery interface {
+	QueryString() string
+}
+
+func (g GitHub) OpenPulls(query openPullsQuery) []Pull {
+	res := assert.NoError(
+		newDefaultClient(g.httpClient, g.token).get(
+			fmt.Sprintf("https://api.github.com/search/issues?q=%s", query.QueryString()),
+		),
+	)
 	body := assert.NoError(io.ReadAll(res.Body))
 
 	pulls := struct {
@@ -183,12 +191,8 @@ func MustParseRepoQuery(repo vo.Repo) RepoQuery {
 	return RepoQuery{repo: repo}
 }
 
-type query interface {
-	QueryString() string
-}
-
 type OpenPullsQuery struct {
-	queries []query
+	queries []openPullsQuery
 }
 
 func (o OpenPullsQuery) QueryString() string {
@@ -204,6 +208,6 @@ func (o OpenPullsQuery) QueryString() string {
 	return fmt.Sprintf("is:pr+state:open%s", queryString)
 }
 
-func NewOpenPullsQuery(queries ...query) OpenPullsQuery {
+func NewOpenPullsQuery(queries ...openPullsQuery) OpenPullsQuery {
 	return OpenPullsQuery{queries: queries}
 }

@@ -20,7 +20,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 	t.Run("returns open pull requests for a given repository", func(t *testing.T) {
 		fakeHttpClient := test.NewFakeHttpClient(
 			map[url.URL][]http.Response{
-				*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:bar+repo:lourenci/foo+state:open")): {
+				*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+repo:lourenci/foo+author:bar")): {
 					{
 						StatusCode: http.StatusOK,
 						Body: io.NopCloser(
@@ -60,7 +60,7 @@ func TestUserOpenPullsOfRepo(t *testing.T) {
 			t,
 			fakeHttpClient.Calls,
 			map[url.URL][]test.Call{
-				*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:bar+repo:lourenci/foo+state:open")): {
+				*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+repo:lourenci/foo+author:bar")): {
 					{
 						Headers: map[string]string{
 							"Authorization":        fmt.Sprintf("Bearer %s", token),

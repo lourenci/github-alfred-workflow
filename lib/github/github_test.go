@@ -492,7 +492,7 @@ func TestOpenPulls(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
 				map[url.URL][]http.Response{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:lourenci+repo:octocat/Hello-World+state:open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:lourenci+repo:octocat/Hello-World")): {
 						{
 							StatusCode: http.StatusOK,
 							Body: io.NopCloser(
@@ -517,7 +517,12 @@ func TestOpenPulls(t *testing.T) {
 
 			githubClient := github.New(token, fakeHttpClient)
 
-			pulls := githubClient.OpenPulls("octocat/Hello-World", "lourenci")
+			pulls := githubClient.OpenPulls(
+				github.NewOpenPullsQuery(
+					github.MustParseUserQuery("lourenci"),
+					github.MustParseRepoQuery(vo.MustParseRepo("octocat/Hello-World")),
+				),
+			)
 
 			require.Equal(
 				t,
@@ -534,7 +539,7 @@ func TestOpenPulls(t *testing.T) {
 				t,
 				fakeHttpClient.Calls,
 				map[url.URL][]test.Call{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:lourenci+repo:octocat/Hello-World+state:open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:lourenci+repo:octocat/Hello-World")): {
 						{
 							Headers: map[string]string{
 								"Authorization":        fmt.Sprintf("Bearer %s", token),
@@ -549,7 +554,7 @@ func TestOpenPulls(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
 				map[url.URL][]http.Response{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:bar+repo:lourenci/foo+state:open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:bar+repo:lourenci/foo")): {
 						{
 							StatusCode: http.StatusOK,
 							Body: io.NopCloser(
@@ -575,7 +580,12 @@ func TestOpenPulls(t *testing.T) {
 
 			githubClient := github.New(token, fakeHttpClient)
 
-			pulls := githubClient.OpenPulls("lourenci/foo", "bar")
+			pulls := githubClient.OpenPulls(
+				github.NewOpenPullsQuery(
+					github.MustParseUserQuery("bar"),
+					github.MustParseRepoQuery(vo.MustParseRepo("lourenci/foo")),
+				),
+			)
 
 			require.Equal(
 				t,
@@ -592,7 +602,7 @@ func TestOpenPulls(t *testing.T) {
 				t,
 				fakeHttpClient.Calls,
 				map[url.URL][]test.Call{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+author:bar+repo:lourenci/foo+state:open")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:bar+repo:lourenci/foo")): {
 						{
 							Headers: map[string]string{
 								"Authorization":        fmt.Sprintf("Bearer %s", token),
