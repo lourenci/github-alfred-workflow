@@ -627,7 +627,7 @@ func TestUserQuery(t *testing.T) {
 }
 
 func TestRepoQuery(t *testing.T) {
-	t.Run("returns the query string for user", func(t *testing.T) {
+	t.Run("returns the query string for repo", func(t *testing.T) {
 		require.Equal(
 			t,
 			github.MustParseRepoQuery(vo.MustParseRepo("foo/bar")).QueryString(),
@@ -637,6 +637,16 @@ func TestRepoQuery(t *testing.T) {
 			t,
 			github.MustParseRepoQuery(vo.MustParseRepo("bar/foo")).QueryString(),
 			"repo:bar/foo",
+		)
+	})
+}
+
+func TestOpenPullsQuery(t *testing.T) {
+	t.Run("returns the query string for open pulls", func(t *testing.T) {
+		require.Equal(
+			t,
+			github.NewOpenPullsQuery().QueryString(),
+			"is:pr+state:open",
 		)
 	})
 }

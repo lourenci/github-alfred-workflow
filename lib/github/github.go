@@ -182,3 +182,13 @@ func (u RepoQuery) QueryString() string {
 func MustParseRepoQuery(repo vo.Repo) RepoQuery {
 	return RepoQuery{repo: repo}
 }
+
+type OpenPullsQuery struct{}
+
+func (o OpenPullsQuery) QueryString() string {
+	return "is:pr+state:open"
+}
+
+func NewOpenPullsQuery() OpenPullsQuery {
+	return OpenPullsQuery{}
+}
