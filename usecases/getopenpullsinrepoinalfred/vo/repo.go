@@ -2,6 +2,7 @@ package vo
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
@@ -13,4 +14,14 @@ func MustParseRepo(name string) Repo {
 	}
 
 	return Repo(name)
+}
+
+func MustParseRepoFromUrl(url string) Repo {
+	matches := regexp.MustCompile("/repos/([^/]+/[^/]+)").FindStringSubmatch(url)
+
+	if len(matches) == 0 {
+		panic(fmt.Errorf(`invalid URL: "%s"`, url))
+	}
+
+	return MustParseRepo(matches[1])
 }

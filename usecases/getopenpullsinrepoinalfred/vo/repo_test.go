@@ -33,3 +33,30 @@ func TestMustParse(t *testing.T) {
 		)
 	})
 }
+
+func TestMustParseRepoFromUrl(t *testing.T) {
+	t.Run("panics when URL is invalid", func(t *testing.T) {
+		require.PanicsWithError(
+			t,
+			`invalid URL: ""`,
+			func() {
+				vo.MustParseRepoFromUrl("")
+			},
+		)
+		require.PanicsWithError(
+			t,
+			`invalid URL: "https://api.github.com/batterseapower/pinyin-toolkit"`,
+			func() {
+				vo.MustParseRepoFromUrl("https://api.github.com/batterseapower/pinyin-toolkit")
+			},
+		)
+	})
+
+	t.Run("parses the Repo from URL", func(t *testing.T) {
+		require.Equal(
+			t,
+			vo.Repo("batterseapower/pinyin-toolkit"),
+			vo.MustParseRepoFromUrl("https://api.github.com/repos/batterseapower/pinyin-toolkit"),
+		)
+	})
+}
