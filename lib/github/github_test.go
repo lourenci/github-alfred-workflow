@@ -502,7 +502,10 @@ func TestOpenPulls(t *testing.T) {
 											{
 												"title": "Amazing PR",
 												"created_at": "2011-01-26T19:01:12Z",
-												"html_url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347"
+												"html_url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347",
+												"repository": {
+													"full_name": "octocat/Hello-World"
+												}
 											}
 										]
 									}
@@ -528,9 +531,10 @@ func TestOpenPulls(t *testing.T) {
 				t,
 				[]github.Pull{
 					{
-						Title:     "Amazing PR",
-						CreatedAt: "2011-01-26T19:01:12Z",
-						URL:       "https://api.github.com/repos/octocat/Hello-World/pulls/1347",
+						Title:          "Amazing PR",
+						CreatedAt:      "2011-01-26T19:01:12Z",
+						URL:            "https://api.github.com/repos/octocat/Hello-World/pulls/1347",
+						RepositoryName: "octocat/Hello-World",
 					},
 				},
 				pulls,
@@ -564,7 +568,10 @@ func TestOpenPulls(t *testing.T) {
 											{
 												"title": "Amazing PR 2",
 												"created_at": "2011-01-24T19:01:12Z",
-												"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347"
+												"html_url": "https://api.github.com/repos/lourenci/foo/pulls/1347",
+												"repository": {
+													"full_name": "lourenci/foo"
+												}
 											}
 										]
 									}
@@ -591,9 +598,10 @@ func TestOpenPulls(t *testing.T) {
 				t,
 				[]github.Pull{
 					{
-						Title:     "Amazing PR 2",
-						CreatedAt: "2011-01-24T19:01:12Z",
-						URL:       "https://api.github.com/repos/lourenci/foo/pulls/1347",
+						Title:          "Amazing PR 2",
+						CreatedAt:      "2011-01-24T19:01:12Z",
+						URL:            "https://api.github.com/repos/lourenci/foo/pulls/1347",
+						RepositoryName: "lourenci/foo",
 					},
 				},
 				pulls,

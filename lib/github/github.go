@@ -11,6 +11,7 @@ import (
 	"strconv"
 
 	"github.com/lourenci/github-alfred/lib/assert"
+	"github.com/lourenci/github-alfred/lib/collection"
 	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
 )
 
@@ -27,9 +28,19 @@ type Repository struct {
 }
 
 type Pull struct {
-	Title     string `json:"title"`
-	CreatedAt string `json:"created_at"`
-	URL       string `json:"html_url"`
+	Title          string
+	CreatedAt      string
+	URL            string
+	RepositoryName string
+}
+
+type pull struct {
+	Title      string `json:"title"`
+	CreatedAt  string `json:"created_at"`
+	URL        string `json:"html_url"`
+	Repository struct {
+		Name string `json:"full_name"`
+	} `json:"repository"`
 }
 
 type repositories []Repository
@@ -106,10 +117,21 @@ func (g GitHub) OpenPulls(query openPullsQuery) []Pull {
 	body := assert.NoError(io.ReadAll(res.Body))
 
 	pulls := struct {
-		Items []Pull `json:"items"`
+		Items []pull `json:"items"`
 	}{}
 	json.Unmarshal(body, &pulls)
-	return pulls.Items
+
+	return collection.Map(
+		pulls.Items,
+		func(it pull) Pull {
+			return Pull{
+				Title:          it.Title,
+				CreatedAt:      it.CreatedAt,
+				URL:            it.URL,
+				RepositoryName: it.Repository.Name,
+			}
+		},
+	)
 }
 
 type defaultClient struct {
