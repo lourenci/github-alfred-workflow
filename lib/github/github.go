@@ -183,12 +183,27 @@ func MustParseRepoQuery(repo vo.Repo) RepoQuery {
 	return RepoQuery{repo: repo}
 }
 
-type OpenPullsQuery struct{}
-
-func (o OpenPullsQuery) QueryString() string {
-	return "is:pr+state:open"
+type query interface {
+	QueryString() string
 }
 
-func NewOpenPullsQuery() OpenPullsQuery {
-	return OpenPullsQuery{}
+type OpenPullsQuery struct {
+	queries []query
+}
+
+func (o OpenPullsQuery) QueryString() string {
+	if len(o.queries) == 0 {
+		return "is:pr+state:open"
+	}
+
+	queryString := ""
+	for _, it := range o.queries {
+		queryString += "+" + it.QueryString()
+	}
+
+	return fmt.Sprintf("is:pr+state:open%s", queryString)
+}
+
+func NewOpenPullsQuery(queries ...query) OpenPullsQuery {
+	return OpenPullsQuery{queries: queries}
 }

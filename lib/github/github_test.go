@@ -648,5 +648,22 @@ func TestOpenPullsQuery(t *testing.T) {
 			github.NewOpenPullsQuery().QueryString(),
 			"is:pr+state:open",
 		)
+
+		require.Equal(
+			t,
+			github.NewOpenPullsQuery(
+				github.MustParseRepoQuery(vo.MustParseRepo("foo/bar")),
+			).QueryString(),
+			"is:pr+state:open+repo:foo/bar",
+		)
+
+		require.Equal(
+			t,
+			github.NewOpenPullsQuery(
+				github.MustParseUserQuery("foobar"),
+				github.MustParseRepoQuery(vo.MustParseRepo("foo/bar")),
+			).QueryString(),
+			"is:pr+state:open+author:foobar+repo:foo/bar",
+		)
 	})
 }
