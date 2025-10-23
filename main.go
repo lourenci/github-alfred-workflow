@@ -13,6 +13,8 @@ import (
 	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred"
 	getOpenPullsRepository "github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/repository"
 	"github.com/lourenci/github-alfred/usecases/getopenpullsinrepoinalfred/vo"
+	"github.com/lourenci/github-alfred/usecases/getuseropenpullsinalfred"
+	openPullsRepository "github.com/lourenci/github-alfred/usecases/getuseropenpullsinalfred/repository"
 	"github.com/lourenci/github-alfred/usecases/getuserreposinalfred"
 	getUsersRepository "github.com/lourenci/github-alfred/usecases/getuserreposinalfred/repository"
 )
@@ -47,8 +49,19 @@ func main() {
 		)))
 
 		fmt.Println(string(json))
+	case "user-pulls":
+		user := os.Args[3]
+
+		useCase := getuseropenpullsinalfred.New(
+			openPullsRepository.New(github.New(token, http.New())),
+		)
+
+		json := assert.NoError(json.Marshal(useCase.GetUserOpenPulls(
+			user,
+		)))
+
+		fmt.Println(string(json))
 	default:
 		panic("invalid option")
 	}
-
 }
