@@ -16,14 +16,16 @@ func TestGetUserOpenPulls(t *testing.T) {
 					map[string][]github.Pull{
 						"john": {
 							{
-								Title:     "Amazing PR",
-								CreatedAt: "2011-01-26T19:01:12Z",
-								URL:       "https://github.com/repos/octocat/Hello-World/pulls/1347",
+								Title:          "Amazing PR",
+								CreatedAt:      "2011-01-26T19:01:12Z",
+								URL:            "https://github.com/repos/octocat/Hello-World/pulls/1347",
+								RepositoryName: "octocat/Hello-World",
 							},
 							{
-								Title:     "Amazing PR 2",
-								CreatedAt: "2011-01-24T19:01:12Z",
-								URL:       "https://github.com/repos/octocat/Hello-World/pulls/1348",
+								Title:          "Amazing PR 2",
+								CreatedAt:      "2011-01-24T19:01:12Z",
+								URL:            "https://github.com/repos/octocat/Hello-World/pulls/1348",
+								RepositoryName: "octocat/Hello-World",
 							},
 						},
 					},
@@ -37,14 +39,14 @@ func TestGetUserOpenPulls(t *testing.T) {
 						{
 							UID:      "https://github.com/repos/octocat/Hello-World/pulls/1347",
 							Title:    "Amazing PR",
-							Subtitle: "Created at 2011-01-26T19:01:12Z",
+							Subtitle: "octocat/Hello-World, created at 2011-01-26T19:01:12Z",
 							Match:    "Amazing PR",
 							Arg:      "https://github.com/repos/octocat/Hello-World/pulls/1347",
 						},
 						{
 							UID:      "https://github.com/repos/octocat/Hello-World/pulls/1348",
 							Title:    "Amazing PR 2",
-							Subtitle: "Created at 2011-01-24T19:01:12Z",
+							Subtitle: "octocat/Hello-World, created at 2011-01-24T19:01:12Z",
 							Match:    "Amazing PR 2",
 							Arg:      "https://github.com/repos/octocat/Hello-World/pulls/1348",
 						},
@@ -59,14 +61,16 @@ func TestGetUserOpenPulls(t *testing.T) {
 					map[string][]github.Pull{
 						"alice": {
 							{
-								Title:     "Foo PR",
-								CreatedAt: "2011-02-26T19:01:12Z",
-								URL:       "https://github.com/repos/foo/bar/pulls/1347",
+								Title:          "Foo PR",
+								CreatedAt:      "2011-02-26T19:01:12Z",
+								URL:            "https://github.com/repos/foo/bar/pulls/1347",
+								RepositoryName: "foo/bar",
 							},
 							{
-								Title:     "Foo PR 2",
-								CreatedAt: "2011-03-24T19:01:12Z",
-								URL:       "https://github.com/repos/foo/bar/pulls/1348",
+								Title:          "Foo PR 2",
+								CreatedAt:      "2011-03-24T19:01:12Z",
+								URL:            "https://github.com/repos/foo/bar/pulls/1348",
+								RepositoryName: "foo/bar",
 							},
 						},
 					},
@@ -80,14 +84,14 @@ func TestGetUserOpenPulls(t *testing.T) {
 						{
 							UID:      "https://github.com/repos/foo/bar/pulls/1347",
 							Title:    "Foo PR",
-							Subtitle: "Created at 2011-02-26T19:01:12Z",
+							Subtitle: "foo/bar, created at 2011-02-26T19:01:12Z",
 							Match:    "Foo PR",
 							Arg:      "https://github.com/repos/foo/bar/pulls/1347",
 						},
 						{
 							UID:      "https://github.com/repos/foo/bar/pulls/1348",
 							Title:    "Foo PR 2",
-							Subtitle: "Created at 2011-03-24T19:01:12Z",
+							Subtitle: "foo/bar, created at 2011-03-24T19:01:12Z",
 							Match:    "Foo PR 2",
 							Arg:      "https://github.com/repos/foo/bar/pulls/1348",
 						},
