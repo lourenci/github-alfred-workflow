@@ -858,7 +858,7 @@ fi
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string></string>
+				<string>gh</string>
 				<key>placeholder</key>
 				<string></string>
 				<key>required</key>
@@ -879,7 +879,7 @@ fi
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string></string>
+				<string>ghp</string>
 				<key>placeholder</key>
 				<string></string>
 				<key>required</key>
