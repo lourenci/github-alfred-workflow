@@ -216,8 +216,9 @@ type OpenPullsQuery struct {
 }
 
 func (o OpenPullsQuery) QueryString() string {
+	defaultOrder := "sort=created&order=desc"
 	if len(o.queries) == 0 {
-		return "is:pr+state:open"
+		return fmt.Sprintf("is:pr+state:open&%s", defaultOrder)
 	}
 
 	queryString := ""
@@ -225,7 +226,7 @@ func (o OpenPullsQuery) QueryString() string {
 		queryString += "+" + it.QueryString()
 	}
 
-	return fmt.Sprintf("is:pr+state:open%s", queryString)
+	return fmt.Sprintf("is:pr+state:open%s&%s", queryString, defaultOrder)
 }
 
 func NewOpenPullsQuery(queries ...openPullsQuery) OpenPullsQuery {

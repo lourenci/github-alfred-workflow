@@ -492,7 +492,7 @@ func TestOpenPulls(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
 				map[url.URL][]http.Response{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:lourenci+repo:octocat/Hello-World")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:lourenci+repo:octocat/Hello-World&sort=created&order=desc")): {
 						{
 							StatusCode: http.StatusOK,
 							Body: io.NopCloser(
@@ -541,7 +541,7 @@ func TestOpenPulls(t *testing.T) {
 				t,
 				fakeHttpClient.Calls,
 				map[url.URL][]test.Call{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:lourenci+repo:octocat/Hello-World")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:lourenci+repo:octocat/Hello-World&sort=created&order=desc")): {
 						{
 							Headers: map[string]string{
 								"Authorization":        fmt.Sprintf("Bearer %s", token),
@@ -556,7 +556,7 @@ func TestOpenPulls(t *testing.T) {
 		{
 			fakeHttpClient := test.NewFakeHttpClient(
 				map[url.URL][]http.Response{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:bar+repo:lourenci/foo")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:bar+repo:lourenci/foo&sort=created&order=desc")): {
 						{
 							StatusCode: http.StatusOK,
 							Body: io.NopCloser(
@@ -606,7 +606,7 @@ func TestOpenPulls(t *testing.T) {
 				t,
 				fakeHttpClient.Calls,
 				map[url.URL][]test.Call{
-					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:bar+repo:lourenci/foo")): {
+					*assert.NoError(url.Parse("https://api.github.com/search/issues?q=is:pr+state:open+author:bar+repo:lourenci/foo&sort=created&order=desc")): {
 						{
 							Headers: map[string]string{
 								"Authorization":        fmt.Sprintf("Bearer %s", token),
@@ -656,28 +656,28 @@ func TestRepoQuery(t *testing.T) {
 }
 
 func TestOpenPullsQuery(t *testing.T) {
-	t.Run("returns the query string for open pulls", func(t *testing.T) {
+	t.Run("returns the query string for open pulls ordered by created desc", func(t *testing.T) {
 		require.Equal(
 			t,
+			"is:pr+state:open&sort=created&order=desc",
 			github.NewOpenPullsQuery().QueryString(),
-			"is:pr+state:open",
 		)
 
 		require.Equal(
 			t,
+			"is:pr+state:open+repo:foo/bar&sort=created&order=desc",
 			github.NewOpenPullsQuery(
 				github.MustParseRepoQuery(vo.MustParseRepo("foo/bar")),
 			).QueryString(),
-			"is:pr+state:open+repo:foo/bar",
 		)
 
 		require.Equal(
 			t,
+			"is:pr+state:open+author:foobar+repo:foo/bar&sort=created&order=desc",
 			github.NewOpenPullsQuery(
 				github.MustParseUserQuery("foobar"),
 				github.MustParseRepoQuery(vo.MustParseRepo("foo/bar")),
 			).QueryString(),
-			"is:pr+state:open+author:foobar+repo:foo/bar",
 		)
 	})
 }
