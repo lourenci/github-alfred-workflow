@@ -1,14 +1,12 @@
 # GitHub alfred workflow
 
-This workflow allows you to search for your GitHub repositories (created, starred and org repos are considered).
+This workflow allows you to search for your GitHub repositories (created, starred, watched and org repos are considered).
 
 You can:
 
-- Browser {created,starred,org} repos
+- Browser {created,starred,org,watched} repos
 
-![Browser {created,starred,org} repos](./assets/2025-10-18-16-41-06.png)
-
-- then, you can:
+  ![Browser {created,starred,org,watched} repos](./assets/2025-10-18-16-41-06.png)
 
   - Copy git repository URL to your clipboard (useful for cloning)
 
@@ -16,7 +14,9 @@ You can:
 
   - List your open PRs in the repository, and navigate to them
 
-  ![List your open PRs in the repository, and navigate to them](./assets/2025-10-18-16-42-21.png)
+      ![List your open PRs in the repository, and navigate to them](./assets/2025-10-18-16-42-21.png)
+
+- Browser your open PRs across all repositories
 
 ## Requirements
 
