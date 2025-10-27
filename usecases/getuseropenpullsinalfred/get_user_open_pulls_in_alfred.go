@@ -40,7 +40,7 @@ func (r UseCase) GetUserOpenPulls(user string) Alfred {
 				UID:      repo.URL,
 				Title:    repo.Title,
 				Subtitle: fmt.Sprintf("%s, created at %s", repo.RepositoryName, repo.CreatedAt),
-				Match:    repo.Title,
+				Match:    fmt.Sprintf("%s %s", repo.RepositoryName, repo.Title),
 				Arg:      repo.URL,
 			}
 		}),
