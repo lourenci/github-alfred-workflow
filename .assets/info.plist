@@ -598,9 +598,9 @@ fi
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
-				<false/>
+				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
+				<integer>2</integer>
 				<key>argumenttreatemptyqueryasnil</key>
 				<true/>
 				<key>argumenttrimmode</key>
@@ -647,7 +647,7 @@ fi
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
-				<string>Getting your open puls...</string>
+				<string>Getting your open pulls...</string>
 				<key>type</key>
 				<integer>11</integer>
 				<key>withspace</key>
